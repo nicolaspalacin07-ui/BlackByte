@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>Verificar email — BlackByte</title>
+  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="css/style.css"/>
+  <style>
+    body { min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 2rem; }
+    .verify-wrap { width: 100%; max-width: 440px; text-align: center; }
+    .verify-logo { display: flex; align-items: center; justify-content: center; gap: 0.65rem; margin-bottom: 2.5rem; text-decoration: none; }
+    .verify-logo svg { width: 28px; height: 28px; color: var(--white); }
+    .verify-logo span { font-family: 'Bebas Neue', sans-serif; font-size: 1.3rem; letter-spacing: 0.12em; color: var(--white); }
+    .verify-card { background: var(--gray); border: 1px solid var(--border); border-radius: 8px; padding: 3rem 2.5rem; }
+    .state-icon { font-size: 3.5rem; margin-bottom: 1.25rem; }
+    .verify-card h1 { font-family: 'Bebas Neue', sans-serif; font-size: 2.2rem; letter-spacing: 0.03em; margin-bottom: 0.75rem; }
+    .verify-card p { font-size: 0.85rem; color: var(--dim); line-height: 1.75; margin-bottom: 2rem; }
+    .loading-dots { display: inline-flex; gap: 0.4rem; margin-bottom: 1.5rem; }
+    .loading-dots span { width: 8px; height: 8px; border-radius: 50%; background: var(--dim); animation: bounce 1.2s infinite; }
+    .loading-dots span:nth-child(2) { animation-delay: 0.2s; }
+    .loading-dots span:nth-child(3) { animation-delay: 0.4s; }
+    @keyframes bounce { 0%,60%,100% { transform: translateY(0); } 30% { transform: translateY(-8px); } }
+    .spin { display: inline-block; width: 36px; height: 36px; border: 2px solid var(--border); border-top-color: var(--white); border-radius: 50%; animation: spin 0.8s linear infinite; margin-bottom: 1.5rem; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+  </style>
+</head>
+<body>
+
+  <div class="verify-wrap">
+    <a href="index.html" class="verify-logo">
+      <svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="3.5">
+        <circle cx="50" cy="50" r="44"/>
+        <ellipse cx="50" cy="50" rx="44" ry="20"/>
+        <ellipse cx="50" cy="50" rx="44" ry="20" transform="rotate(60 50 50)"/>
+        <ellipse cx="50" cy="50" rx="44" ry="20" transform="rotate(120 50 50)"/>
+      </svg>
+      <span>BLACKBYTE</span>
+    </a>
+
+    <div class="verify-card" id="verify-card">
+      <!-- Loading -->
+      <div id="state-loading">
+        <div class="spin"></div>
+        <h1>Verificando...</h1>
+        <p>Estamos confirmando tu email. Esto tarda solo un segundo.</p>
+      </div>
+
+      <!-- Success -->
+      <div id="state-success" style="display:none;">
+        <div class="state-icon">🎉</div>
+        <h1>Email verificado</h1>
+        <p>Tu cuenta está activa. Ya podés acceder a todos los servicios de BlackByte.</p>
+        <a href="login.html" class="btn" style="display:inline-block;">Iniciar sesión</a>
+      </div>
+
+      <!-- Error -->
+      <div id="state-error" style="display:none;">
+        <div class="state-icon">❌</div>
+        <h1>Enlace inválido</h1>
+        <p>Este enlace de verificación expiró o ya fue utilizado. Podés solicitar uno nuevo desde tu dashboard.</p>
+        <a href="login.html" class="btn" style="display:inline-block;">Ir al inicio de sesión</a>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const API   = 'http://localhost:5000/api/auth';
+    const token = new URLSearchParams(window.location.search).get('token');
+
+    function show(id) {
+      ['state-loading','state-success','state-error'].forEach(s => {
+        document.getElementById(s).style.display = s === id ? 'block' : 'none';
+      });
+    }
+
+    async function verify() {
+      if (!token) return show('state-error');
+
+      try {
+        const res  = await fetch(`${API}/verify-email/${token}`);
+        const data = await res.json();
+        show(data.ok ? 'state-success' : 'state-error');
+      } catch {
+        show('state-error');
+      }
+    }
+
+    verify();
+  </script>
+
+  <nav class="contact-bar" aria-label="Contacto rápido">
+    <a href="https://www.instagram.com/blackbytecode/" target="_blank" rel="noopener noreferrer" class="contact-bar-item">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+      <span>@blackbytecode</span>
+    </a>
+    <div class="contact-bar-divider"></div>
+    <a href="mailto:blackbyte.contacto@gmail.com" class="contact-bar-item">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M22 7l-10 7L2 7"/></svg>
+      <span>blackbyte.contacto@gmail.com</span>
+    </a>
+    <div class="contact-bar-divider"></div>
+    <a href="https://wa.me/5491135962017?text=Hola%20BlackByte%2C%20vi%20su%20p%C3%A1gina%20y%20me%20gustar%C3%ADa%20consultar%20sobre%20sus%20servicios." target="_blank" rel="noopener noreferrer" class="contact-bar-item">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+      <span>WhatsApp</span>
+    </a>
+    <div class="contact-bar-divider"></div>
+    <a href="https://wa.me/5491165313048?text=Hola%20BlackByte%2C%20necesito%20soporte." target="_blank" rel="noopener noreferrer" class="contact-bar-item">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+      <span>Soporte</span>
+    </a>
+  </nav>
+</body>
+</html>

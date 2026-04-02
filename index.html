@@ -1,0 +1,1402 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="BlackByte — Creamos páginas web, tiendas online y automatizaciones que atraen clientes y generan ventas para tu negocio." />
+  <title>BlackByte — Más clientes para tu negocio</title>
+  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+  <style>
+    /* ── Hero ─────────────────────────────────────── */
+    #hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      padding: 0 5%;
+      padding-top: var(--nav-height);
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Grid cuadriculado en el hero */
+    #hero-grid {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* animated gradient blobs */
+    #hero::before {
+      content: '';
+      position: absolute;
+      top: -10%;
+      left: -20%;
+      width: 80vw;
+      height: 80vw;
+      max-width: 700px;
+      max-height: 700px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(255,255,255,0.05) 0%, transparent 65%);
+      animation: hero-blob 8s ease-in-out infinite alternate;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    #hero::after {
+      content: '';
+      position: absolute;
+      bottom: -15%;
+      right: -15%;
+      width: 70vw;
+      height: 70vw;
+      max-width: 600px;
+      max-height: 600px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(255,255,255,0.035) 0%, transparent 65%);
+      animation: hero-blob 10s ease-in-out infinite alternate-reverse;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    @keyframes hero-blob {
+      0%   { transform: translate(0, 0) scale(1); }
+      100% { transform: translate(6%, 8%) scale(1.12); }
+    }
+
+    .hero-bg-orbital {
+      position: absolute;
+      top: 50%;
+      right: -8%;
+      transform: translateY(-50%);
+      width: min(700px, 75vw);
+      height: min(700px, 75vw);
+      opacity: 0.04;
+      pointer-events: none;
+      z-index: 0;
+      color: var(--white);
+      animation: orbital-spin 30s linear infinite;
+    }
+
+    @keyframes orbital-spin {
+      from { transform: translateY(-50%) rotate(0deg); }
+      to   { transform: translateY(-50%) rotate(360deg); }
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 1;
+      max-width: 950px;
+    }
+
+    .hero-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.55rem;
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--dim);
+      margin-bottom: 1.6rem;
+    }
+
+    .hero-tag::before {
+      content: '';
+      display: inline-block;
+      width: 6px;
+      height: 6px;
+      background: var(--white);
+      border-radius: 50%;
+      opacity: 0.45;
+    }
+
+    /* Glitch Effect */
+    .hero-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(5rem, 14vw, 13rem);
+      line-height: 0.92;
+      position: relative;
+      color: var(--white);
+      letter-spacing: 0.02em;
+      margin-bottom: 1.8rem;
+      display: inline-block;
+    }
+
+    .hero-title::before,
+    .hero-title::after {
+      content: attr(data-text);
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      color: var(--white);
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: inherit;
+      line-height: inherit;
+      letter-spacing: inherit;
+    }
+
+    .hero-title::before {
+      clip-path: polygon(0 20%, 100% 20%, 100% 48%, 0 48%);
+      animation: glitch-a 2.5s infinite;
+    }
+
+    .hero-title::after {
+      clip-path: polygon(0 55%, 100% 55%, 100% 82%, 0 82%);
+      animation: glitch-b 2.5s infinite;
+    }
+
+    @keyframes glitch-a {
+      0%, 85%, 100% { transform: translateX(0);   opacity: 0; }
+      86%            { transform: translateX(-6px); opacity: 0.6; }
+      88%            { transform: translateX(6px); }
+      90%            { transform: translateX(0);   opacity: 0; }
+    }
+
+    @keyframes glitch-b {
+      0%, 87%, 100% { transform: translateX(0);   opacity: 0; }
+      88%            { transform: translateX(7px); opacity: 0.5; }
+      90%            { transform: translateX(-5px); }
+      92%            { transform: translateX(0);   opacity: 0; }
+    }
+
+    .hero-subtitle {
+      font-size: clamp(1rem, 2.2vw, 1.22rem);
+      font-weight: 400;
+      color: var(--dim);
+      max-width: 540px;
+      line-height: 1.65;
+      margin-bottom: 2.5rem;
+    }
+
+    .hero-ctas {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .scroll-indicator {
+      position: absolute;
+      bottom: 2.5rem;
+      left: 5%;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      font-size: 0.68rem;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: rgba(240,240,240,0.28);
+    }
+
+    .scroll-indicator-line {
+      width: 40px;
+      height: 1px;
+      background: rgba(240,240,240,0.15);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .scroll-indicator-line::after {
+      content: '';
+      position: absolute;
+      left: -100%;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(240,240,240,0.6);
+      animation: slide-line 2s ease-in-out infinite;
+    }
+
+    @keyframes slide-line {
+      0%   { left: -100%; }
+      50%  { left: 0; }
+      100% { left: 100%; }
+    }
+
+    /* ── Services ─────────────────────────────────── */
+    #services { background: var(--black); }
+
+    .services-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      margin-bottom: 3.5rem;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+    }
+
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      background: var(--border);
+      border: 1px solid var(--border);
+    }
+
+    .service-card {
+      background: var(--gray);
+      padding: 2.5rem 2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1.1rem;
+      transition: background var(--transition);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .service-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(255,255,255,0.025) 0%, transparent 60%);
+      opacity: 0;
+      transition: opacity var(--transition);
+    }
+
+    .service-card:hover { background: var(--gray-mid); border-top: 2px solid var(--accent); }
+    .service-card:hover::before { opacity: 1; }
+
+    .service-number {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 0.85rem;
+      letter-spacing: 0.12em;
+      color: var(--accent);
+      opacity: 0.7;
+    }
+
+    .service-icon {
+      width: 34px;
+      height: 34px;
+      color: var(--white);
+      opacity: 0.7;
+    }
+
+    .service-card h3 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.65rem;
+      letter-spacing: 0.04em;
+      line-height: 1;
+    }
+
+    .service-card p {
+      font-size: 0.84rem;
+      color: var(--dim);
+      line-height: 1.72;
+      flex: 1;
+    }
+
+    .service-arrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      color: var(--accent) !important;
+      opacity: 0.6;
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: rgba(240,240,240,0.3);
+      margin-top: auto;
+      transition: color var(--transition), gap var(--transition);
+    }
+
+    .service-card:hover .service-arrow {
+      color: var(--white);
+      gap: 0.65rem;
+    }
+
+    /* ── Stats v2 ──────────────────────────────────── */
+    #stats {
+      background: var(--black);
+      border-top: 1px solid var(--border);
+      padding: 0;
+      position: relative;
+      overflow: hidden;
+    }
+
+    #stats-canvas {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* scan line */
+    #stats::after {
+      content: '';
+      position: absolute;
+      left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+      animation: scan-line 5s ease-in-out infinite;
+      pointer-events: none;
+      z-index: 2;
+    }
+
+    @keyframes scan-line {
+      0%   { top: 0%; opacity: 0; }
+      5%   { opacity: 1; }
+      95%  { opacity: 1; }
+      100% { top: 100%; opacity: 0; }
+    }
+
+    .stats-top {
+      padding: 4rem 5% 2rem;
+      border-bottom: 1px solid var(--border);
+      position: relative;
+      z-index: 1;
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      position: relative;
+      z-index: 1;
+    }
+
+    /* glowing border animation on hover */
+    @keyframes border-glow {
+      0%, 100% { box-shadow: inset 0 0 0 1px rgba(255,255,255,0.05); }
+      50%       { box-shadow: inset 0 0 0 1px rgba(255,255,255,0.2), 0 0 30px rgba(255,255,255,0.04); }
+    }
+    .stat-item-v2 { animation: border-glow 4s ease-in-out infinite; }
+    .stat-item-v2:nth-child(2) { animation-delay: 1.3s; }
+    .stat-item-v2:nth-child(3) { animation-delay: 2.6s; }
+
+    .stat-item-v2 {
+      padding: 4rem 5%;
+      border-right: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      position: relative;
+      overflow: hidden;
+      transition: background 0.4s;
+    }
+    .stat-item-v2:last-child { border-right: none; }
+    .stat-item-v2:hover { background: rgba(0,102,255,0.06); border-top: 2px solid var(--accent) !important; }
+
+    /* corner accent */
+    .stat-item-v2::before {
+      content: '';
+      border-top-color: var(--accent) !important;
+      border-left-color: var(--accent) !important;
+      position: absolute;
+      top: 0; left: 0;
+      width: 40px; height: 40px;
+      border-top: 1px solid rgba(255,255,255,0.15);
+      border-left: 1px solid rgba(255,255,255,0.15);
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+    .stat-item-v2:hover::before { opacity: 1; }
+
+    .stat-v2-inner {
+      display: flex;
+      flex-direction: column;
+      gap: 1.2rem;
+    }
+
+    .stat-v2-number {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(5rem, 9vw, 10rem);
+      line-height: 0.9;
+      letter-spacing: 0.01em;
+      color: var(--white);
+      display: flex;
+      align-items: baseline;
+      gap: 0.05em;
+      text-shadow: 0 0 40px rgba(0,102,255,0.5), 0 0 80px rgba(0,102,255,0.2);
+    }
+
+    .stat-v2-suffix {
+      font-size: 0.4em;
+      opacity: 0.4;
+    }
+
+    .stat-v2-bar {
+      height: 1px;
+      background: rgba(255,255,255,0.08);
+      overflow: hidden;
+    }
+
+    .stat-v2-fill {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, rgba(255,255,255,0.3), rgba(255,255,255,0.8));
+      transition: width 1.8s cubic-bezier(.23,1,.32,1);
+    }
+    .stat-v2-fill.animated { width: var(--fill-width, 100%); }
+
+    .stat-v2-label {
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.5);
+    }
+
+    .stat-v2-desc {
+      font-size: 0.84rem;
+      color: var(--dim);
+      line-height: 1.72;
+      max-width: 280px;
+    }
+
+    /* ── Courses v2 ────────────────────────────────── */
+    #courses {
+      background: var(--gray);
+      border-top: 1px solid var(--border);
+      position: relative;
+      overflow: hidden;
+      text-align: center;
+    }
+
+    #courses-canvas {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* orbital como decoración de fondo centrada */
+    .courses-bg-orbital {
+      position: absolute;
+      top: 50%;
+      left: 0;
+      right: 0;
+      margin: auto;
+      width: min(560px, 85vw);
+      height: min(560px, 85vw);
+      transform: translateY(-50%);
+      color: rgba(255,255,255,0.08);
+      animation: orbital-spin 25s linear infinite;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .courses-center {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .badge-cs {
+      display: inline-flex;
+      align-items: center;
+      padding: 0.3rem 0.8rem;
+      font-size: 0.64rem;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      border: 1px solid var(--border-mid);
+      border-radius: 2px;
+      color: var(--dim);
+    }
+
+    /* ── Contact ───────────────────────────────────── */
+    #contact {
+      text-align: center;
+      background: var(--black);
+    }
+
+    #contact .section-title {
+      font-size: clamp(4rem, 10vw, 9rem);
+      margin-bottom: 0.75rem;
+    }
+
+    .section-sub {
+      font-size: 1rem;
+      color: var(--dim);
+      max-width: 400px;
+      margin: 0 auto 3rem;
+      line-height: 1.65;
+    }
+
+    .contact-buttons {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .contact-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.55rem;
+      padding: 0.9rem 2rem;
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      border: 1px solid var(--border-mid);
+      border-radius: var(--radius);
+      color: var(--white);
+      transition: border-color var(--transition), background var(--transition);
+    }
+
+    .contact-btn:hover {
+      border-color: var(--white);
+      background: rgba(255,255,255,0.04);
+    }
+
+    .contact-btn svg { width: 16px; height: 16px; }
+
+    .contact-btn.disabled {
+      opacity: 0.35;
+      cursor: not-allowed;
+      pointer-events: none;
+    }
+
+    /* ── Responsive ─────────────────────────────────── */
+    @media (max-width: 1024px) {
+      .services-grid   { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    @media (max-width: 768px) {
+      .services-header  { flex-direction: column; align-items: flex-start; }
+      .services-grid    { grid-template-columns: repeat(2, 1fr); }
+      #packages .services-header { flex-direction: column; align-items: flex-start; }
+      #packages > div:nth-child(2) { grid-template-columns: 1fr !important; }
+      .stats-grid       { grid-template-columns: 1fr; }
+      .stat-item-v2     { border-right: none; }
+      .stat-item-v2:last-child { border-bottom: none; }
+      .cases-grid        { grid-template-columns: 1fr !important; }
+      .testimonials-grid { grid-template-columns: 1fr !important; }
+      .contact-buttons  { flex-direction: column; align-items: stretch; max-width: 320px; margin: 0 auto; }
+      .contact-btn      { justify-content: center; }
+      #hero             { padding: 0 6%; padding-top: var(--nav-height); align-items: center; }
+      .hero-bg-orbital  { width: min(420px, 90vw); height: min(420px, 90vw); right: -20%; opacity: 0.03; }
+      .hero-content     { width: 100%; }
+    }
+
+    @media (max-width: 480px) {
+      .services-grid   { grid-template-columns: 1fr; }
+      .hero-ctas       { flex-direction: column; align-items: flex-start; }
+      .hero-bg-orbital {
+        width: 85vw;
+        height: 85vw;
+        right: -25%;
+        top: 60%;
+        opacity: 0.05;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ═══════════════════════════════════════════════
+       NAV
+  ════════════════════════════════════════════════ -->
+  <nav id="navbar" aria-label="Navegación principal">
+    <div class="nav-container">
+
+      <a href="index.html" class="nav-logo" aria-label="BlackByte inicio">
+        <svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="3.5" aria-hidden="true">
+          <circle cx="50" cy="50" r="44"/>
+          <ellipse cx="50" cy="50" rx="44" ry="20"/>
+          <ellipse cx="50" cy="50" rx="44" ry="20" transform="rotate(60 50 50)"/>
+          <ellipse cx="50" cy="50" rx="44" ry="20" transform="rotate(120 50 50)"/>
+        </svg>
+        BLACKBYTE
+      </a>
+
+      <ul class="nav-links" role="list">
+        <li><a href="index.html#services">Servicios</a></li>
+        <li><a href="index.html#packages">Precios</a></li>
+        <li><a href="portfolio.html">Nosotros</a></li>
+        <li><a href="index.html#contact">Contacto</a></li>
+        <li class="mobile-auth"><a href="login.html" class="nav-cta">Iniciar sesión</a></li>
+      </ul>
+
+      <div class="nav-right">
+        <a href="login.html" class="nav-cta nav-desktop-login">Iniciar sesión</a>
+      </div>
+
+      <button class="hamburger" id="hamburger" aria-label="Abrir menú" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+
+    </div>
+  </nav>
+
+  <!-- ═══════════════════════════════════════════════
+       HERO
+  ════════════════════════════════════════════════ -->
+  <section id="hero" aria-label="Inicio">
+
+    <div id="hero-grid" aria-hidden="true"></div>
+    <div id="hero-glow" aria-hidden="true"></div>
+
+    <svg class="hero-bg-orbital" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="1.2" aria-hidden="true">
+      <circle cx="50" cy="50" r="44"/>
+      <ellipse cx="50" cy="50" rx="44" ry="20"/>
+      <ellipse cx="50" cy="50" rx="44" ry="20" transform="rotate(60 50 50)"/>
+      <ellipse cx="50" cy="50" rx="44" ry="20" transform="rotate(120 50 50)"/>
+    </svg>
+
+    <div class="hero-content">
+      <p class="hero-tag reveal">Tu negocio merece ser visible</p>
+      <h1 class="hero-title reveal" data-text="MÁS CLIENTES.">MÁS CLIENTES.</h1>
+      <p class="hero-subtitle reveal">Creamos páginas web y sistemas que atraen clientes, generan ventas y automatizan tu negocio. Sin complicaciones, sin tecnicismos. Solo resultados.</p>
+      <div class="hero-ctas reveal">
+        <a href="https://wa.me/5491135962017?text=Hola%2C%20buenos%20d%C3%ADas.%20Vi%20su%20p%C3%A1gina%20web%20y%20me%20gustar%C3%ADa%20saber%20c%C3%B3mo%20pueden%20ayudarme%20a%20conseguir%20m%C3%A1s%20clientes%20para%20mi%20negocio.%20%C2%BFPodr%C3%ADamos%20hablar%3F" target="_blank" rel="noopener noreferrer" class="btn btn-primary">Quiero más clientes →</a>
+        <a href="#packages" class="btn btn-outline">Ver planes y precios</a>
+      </div>
+    </div>
+
+    <div class="scroll-indicator" aria-hidden="true">
+      <div class="scroll-indicator-line"></div>
+      Scroll
+    </div>
+
+  </section>
+
+  <!-- ═══════ MARQUEE ═══════ -->
+  <div class="marquee-section" aria-hidden="true">
+    <div class="marquee-track">
+      <span class="marquee-item">Más clientes</span>
+      <span class="marquee-item">Más ventas</span>
+      <span class="marquee-item">Tu marca online</span>
+      <span class="marquee-item">Resultados reales</span>
+      <span class="marquee-item">Presencia digital</span>
+      <span class="marquee-item">Automatización</span>
+      <span class="marquee-item">Primero en Google</span>
+      <span class="marquee-item">Tienda online</span>
+      <span class="marquee-item">Diseño profesional</span>
+      <span class="marquee-item">Más clientes</span>
+      <span class="marquee-item">Más ventas</span>
+      <span class="marquee-item">Tu marca online</span>
+      <span class="marquee-item">Resultados reales</span>
+      <span class="marquee-item">Presencia digital</span>
+      <span class="marquee-item">Automatización</span>
+      <span class="marquee-item">Primero en Google</span>
+      <span class="marquee-item">Tienda online</span>
+      <span class="marquee-item">Diseño profesional</span>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════
+       SERVICES
+  ════════════════════════════════════════════════ -->
+  <section id="services" aria-label="Servicios">
+
+    <div class="services-header">
+      <div>
+        <span class="section-label reveal">Qué hacemos por tu negocio</span>
+        <h2 class="section-title split-title">Soluciones que venden.</h2>
+      </div>
+      <p class="text-dim reveal" style="max-width:380px;font-size:0.88rem;line-height:1.72;">
+        No vendemos tecnología. Vendemos resultados: más clientes, más ventas y menos trabajo manual para vos.
+      </p>
+    </div>
+
+    <div class="services-grid reveal-group">
+
+      <div class="service-card reveal" data-modal="modal-diseno">
+        <span class="service-number">01</span>
+        <svg class="service-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+          <rect x="2" y="3" width="20" height="14" rx="2"/>
+          <path d="M8 21h8M12 17v4"/>
+        </svg>
+        <h3>Páginas Web</h3>
+        <p>Tu negocio abierto las 24 horas. Una página profesional que atrae clientes y genera confianza mientras vos dormís.</p>
+        <span class="service-arrow">Ver más ↗</span>
+      </div>
+
+      <div class="service-card reveal" data-modal="modal-desarrollo">
+        <span class="service-number">02</span>
+        <svg class="service-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+          <polyline points="16 18 22 12 16 6"/>
+          <polyline points="8 6 2 12 8 18"/>
+        </svg>
+        <h3>Tiendas Online</h3>
+        <p>Vendé tus productos por internet sin depender de nadie. Tu propia tienda, con pagos integrados y envíos automatizados.</p>
+        <span class="service-arrow">Ver más ↗</span>
+      </div>
+
+      <div class="service-card reveal" data-modal="modal-branding">
+        <span class="service-number">03</span>
+        <svg class="service-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+          <circle cx="12" cy="12" r="3"/>
+          <path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/>
+        </svg>
+        <h3>Imagen de Marca</h3>
+        <p>Una identidad visual que genera confianza desde el primer segundo. Logo, colores y todo lo que necesitás para verte profesional.</p>
+        <span class="service-arrow">Ver más ↗</span>
+      </div>
+
+      <div class="service-card reveal" data-modal="modal-seo">
+        <span class="service-number">04</span>
+        <svg class="service-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+          <circle cx="11" cy="11" r="8"/>
+          <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+          <line x1="11" y1="8" x2="11" y2="14"/>
+          <line x1="8" y1="11" x2="14" y2="11"/>
+        </svg>
+        <h3>Primero en Google</h3>
+        <p>Que te encuentren cuando te buscan. Posicionamos tu negocio en Google para que lleguen clientes nuevos todos los días.</p>
+        <span class="service-arrow">Ver más ↗</span>
+      </div>
+
+      <div class="service-card reveal" data-modal="modal-apps">
+        <span class="service-number">05</span>
+        <svg class="service-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+          <rect x="5" y="2" width="14" height="20" rx="2"/>
+          <line x1="12" y1="18" x2="12" y2="18.01"/>
+        </svg>
+        <h3>Sistemas a Medida</h3>
+        <p>Aplicaciones que simplifican tu operación: gestión de turnos, stock, pedidos, lo que tu negocio necesite para funcionar mejor.</p>
+        <span class="service-arrow">Ver más ↗</span>
+      </div>
+
+      <div class="service-card reveal" data-modal="modal-automatizacion">
+        <span class="service-number">06</span>
+        <svg class="service-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+          <path d="M12 2L2 7l10 5 10-5-10-5z"/>
+          <path d="M2 17l10 5 10-5"/>
+          <path d="M2 12l10 5 10-5"/>
+        </svg>
+        <h3>Automatización</h3>
+        <p>Dejá que la tecnología haga el trabajo repetitivo. Bots de WhatsApp, respuestas automáticas y procesos que funcionan solos.</p>
+        <span class="service-arrow">Ver más ↗</span>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════
+       PACKAGES / PRICING
+  ════════════════════════════════════════════════ -->
+  <section id="packages" aria-label="Planes" style="background:var(--gray);border-top:1px solid var(--border);">
+    <div class="services-header">
+      <div>
+        <span class="section-label reveal">Planes y precios</span>
+        <h2 class="section-title split-title">Elegí tu plan.</h2>
+      </div>
+      <p class="text-dim reveal" style="max-width:380px;font-size:0.88rem;line-height:1.72;">
+        Sin letras chicas, sin costos ocultos. Sabés exactamente lo que recibís y cuánto cuesta.
+      </p>
+    </div>
+
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);border:1px solid var(--border);" class="reveal-group">
+
+      <!-- STARTER -->
+      <div class="reveal" style="background:var(--gray-mid);padding:2.5rem 2rem;display:flex;flex-direction:column;gap:1.2rem;">
+        <span style="font-family:'Bebas Neue',sans-serif;font-size:0.8rem;letter-spacing:0.15em;color:var(--accent);opacity:0.8;">STARTER</span>
+        <h3 style="font-family:'Bebas Neue',sans-serif;font-size:2.2rem;letter-spacing:0.04em;line-height:1;">Landing Page</h3>
+        <div style="display:flex;align-items:baseline;gap:0.2rem;">
+          <span style="font-family:'Bebas Neue',sans-serif;font-size:3.5rem;color:var(--white);line-height:1;">$300</span>
+          <span style="font-size:0.8rem;color:var(--dim);">USD</span>
+        </div>
+        <p style="font-size:0.78rem;color:var(--dim);line-height:1.7;border-top:1px solid var(--border);padding-top:1.2rem;">Ideal para empezar a recibir consultas sin depender de redes sociales.</p>
+        <ul style="list-style:none;display:flex;flex-direction:column;gap:0.6rem;flex:1;">
+          <li style="font-size:0.82rem;color:var(--dim);display:flex;align-items:center;gap:0.5rem;"><span style="color:var(--accent);">✓</span> Página diseñada para generar consultas desde el primer día</li>
+          <li style="font-size:0.82rem;color:var(--dim);display:flex;align-items:center;gap:0.5rem;"><span style="color:var(--accent);">✓</span> Estructura estratégica que guía al cliente</li>
+          <li style="font-size:0.82rem;color:var(--dim);display:flex;align-items:center;gap:0.5rem;"><span style="color:var(--accent);">✓</span> Integración directa con WhatsApp</li>
+          <li style="font-size:0.82rem;color:var(--dim);display:flex;align-items:center;gap:0.5rem;"><span style="color:var(--accent);">✓</span> Adaptado a celular</li>
+          <li style="font-size:0.82rem;color:var(--dim);display:flex;align-items:center;gap:0.5rem;"><span style="color:var(--accent);">✓</span> Entrega en pocos días</li>
+          <li style="font-size:0.82rem;color:var(--dim);display:flex;align-items:center;gap:0.5rem;"><span style="color:var(--accent);">✓</span> 1 ajuste de diseño incluido</li>
+        </ul>
+        <a href="https://wa.me/5491135962017?text=Hola%2C%20buenos%20d%C3%ADas.%20Vi%20su%20p%C3%A1gina%20y%20me%20interesa%20el%20plan%20Starter%20%E2%80%94%20Landing%20Page.%20%C2%BFPodr%C3%ADan%20contarme%20m%C3%A1s%20detalles%20y%20c%C3%B3mo%20arrancar%3F" target="_blank" rel="noopener noreferrer" class="btn btn-outline" style="text-align:center;margin-top:auto;">Quiero mi página →</a>
+      </div>
+
+      <!-- PRO -->
+      <div class="reveal" style="background:var(--gray-mid);padding:2.5rem 2rem;display:flex;flex-direction:column;gap:1.2rem;border-left:2px solid var(--accent);border-right:2px solid var(--accent);">
+        <div style="display:flex;align-items:center;justify-content:space-between;">
+          <span style="font-family:'Bebas Neue',sans-serif;font-size:0.8rem;letter-spacing:0.15em;color:var(--accent);opacity:0.8;">PROFESIONAL</span>
+          <span style="font-size:0.6rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;background:var(--accent);color:var(--black);padding:0.2rem 0.6rem;border-radius:2px;">MÁS ELEGIDO</span>
+        </div>
+        <h3 style="font-family:'Bebas Neue',sans-serif;font-size:2.2rem;letter-spacing:0.04em;line-height:1;">Sitio Web Completo</h3>
+        <div style="display:flex;align-items:baseline;gap:0.2rem;">
+          <span style="font-family:'Bebas Neue',sans-serif;font-size:3.5rem;color:var(--white);line-height:1;">$480</span>
+          <span style="font-size:0.8rem;color:var(--dim);">USD</span>
+        </div>
+        <p style="font-size:0.78rem;color:var(--dim);line-height:1.7;border-top:1px solid var(--border);padding-top:1.2rem;">Para negocios que quieren atraer clientes y posicionarse en Google.</p>
+        <ul style="list-style:none;display:flex;flex-direction:column;gap:0.6rem;flex:1;">
+          <li style="font-size:0.82rem;color:var(--dim);display:flex;align-items:center;gap:0.5rem;"><span style="color:var(--accent);">✓</span> Sitio completo con estructura pensada para vender</li>
+          <li style="font-size:0.82rem;color:var(--dim);display:flex;align-items:center;gap:0.5rem;"><span style="color:var(--accent);">✓</span> Estructura clara que guía al cliente a contactarte</li>
+          <li style="font-size:0.82rem;color:var(--dim);display:flex;align-items:center;gap:0.5rem;"><span style="color:var(--accent);">✓</span> Base optimizada para empezar a aparecer en Google</li>
+          <li style="font-size:0.82rem;color:var(--dim);display:flex;align-items:center;gap:0.5rem;"><span style="color:var(--accent);">✓</span> Integración con Google Business</li>
+          <li style="font-size:0.82rem;color:var(--dim);display:flex;align-items:center;gap:0.5rem;"><span style="color:var(--accent);">✓</span> Botones de contacto (WhatsApp + llamada)</li>
+          <li style="font-size:0.82rem;color:var(--dim);display:flex;align-items:center;gap:0.5rem;"><span style="color:var(--accent);">✓</span> 3 ajustes de diseño + soporte post-entrega</li>
+        </ul>
+        <a href="https://wa.me/5491135962017?text=Hola%2C%20buenos%20d%C3%ADas.%20Vi%20su%20p%C3%A1gina%20y%20me%20interesa%20el%20plan%20Profesional%20%E2%80%94%20Sitio%20Web%20Completo.%20Me%20gustar%C3%ADa%20coordinar%20una%20consulta%20para%20ver%20c%C3%B3mo%20adaptar%20el%20proyecto%20a%20mi%20negocio." target="_blank" rel="noopener noreferrer" class="btn btn-primary" style="text-align:center;margin-top:auto;">Quiero más clientes →</a>
+      </div>
+
+      <!-- PREMIUM -->
+      <div class="reveal" style="background:var(--gray-mid);padding:2.5rem 2rem;display:flex;flex-direction:column;gap:1.2rem;">
+        <span style="font-family:'Bebas Neue',sans-serif;font-size:0.8rem;letter-spacing:0.15em;color:var(--accent);opacity:0.8;">PREMIUM</span>
+        <h3 style="font-family:'Bebas Neue',sans-serif;font-size:2.2rem;letter-spacing:0.04em;line-height:1;">Solución Completa</h3>
+        <div style="display:flex;align-items:baseline;gap:0.2rem;">
+          <span style="font-family:'Bebas Neue',sans-serif;font-size:3.5rem;color:var(--white);line-height:1;">$650</span>
+          <span style="font-size:0.8rem;color:var(--dim);">USD</span>
+        </div>
+        <p style="font-size:0.78rem;color:var(--dim);line-height:1.7;border-top:1px solid var(--border);padding-top:1.2rem;">Para negocios que quieren vender online y automatizar procesos.</p>
+        <ul style="list-style:none;display:flex;flex-direction:column;gap:0.6rem;flex:1;">
+          <li style="font-size:0.82rem;color:var(--dim);display:flex;align-items:center;gap:0.5rem;"><span style="color:var(--accent);">✓</span> Sistema diseñado para generar ventas de forma automática</li>
+          <li style="font-size:0.82rem;color:var(--dim);display:flex;align-items:center;gap:0.5rem;"><span style="color:var(--accent);">✓</span> Tienda online o solución a medida</li>
+          <li style="font-size:0.82rem;color:var(--dim);display:flex;align-items:center;gap:0.5rem;"><span style="color:var(--accent);">✓</span> Automatización de WhatsApp</li>
+          <li style="font-size:0.82rem;color:var(--dim);display:flex;align-items:center;gap:0.5rem;"><span style="color:var(--accent);">✓</span> Estrategia básica para convertir visitas en clientes</li>
+          <li style="font-size:0.82rem;color:var(--dim);display:flex;align-items:center;gap:0.5rem;"><span style="color:var(--accent);">✓</span> Seguimiento automático de consultas y clientes</li>
+          <li style="font-size:0.82rem;color:var(--dim);display:flex;align-items:center;gap:0.5rem;"><span style="color:var(--accent);">✓</span> Mantenimiento mensual incluido</li>
+          <li style="font-size:0.82rem;color:var(--dim);display:flex;align-items:center;gap:0.5rem;"><span style="color:var(--accent);">✓</span> Soporte prioritario</li>
+          <li style="font-size:0.82rem;color:var(--dim);display:flex;align-items:center;gap:0.5rem;"><span style="color:var(--accent);">✓</span> Ajustes de diseño ilimitados</li>
+        </ul>
+        <a href="https://wa.me/5491135962017?text=Hola%2C%20buenos%20d%C3%ADas.%20Vi%20su%20p%C3%A1gina%20y%20me%20interesa%20el%20plan%20Premium%20%E2%80%94%20Soluci%C3%B3n%20Completa.%20Me%20gustar%C3%ADa%20agendar%20una%20llamada%20o%20reuni%C3%B3n%20para%20evaluar%20el%20proyecto%20en%20detalle." target="_blank" rel="noopener noreferrer" class="btn btn-outline" style="text-align:center;margin-top:auto;">Quiero automatizar mi negocio →</a>
+      </div>
+
+    </div>
+
+    <!-- CUSTOM PLAN -->
+    <div class="reveal" style="margin-top:1px;background:var(--gray-mid);border:1px solid var(--border);border-top:none;padding:2.5rem 2rem;display:flex;flex-direction:column;align-items:center;text-align:center;gap:1.2rem;position:relative;overflow:hidden;">
+      <div style="position:absolute;inset:0;background:linear-gradient(135deg,rgba(0,102,255,0.04) 0%,transparent 60%);pointer-events:none;"></div>
+      <span style="font-family:'Bebas Neue',sans-serif;font-size:0.8rem;letter-spacing:0.18em;color:var(--accent);opacity:0.9;">CUSTOM</span>
+      <h3 style="font-family:'Bebas Neue',sans-serif;font-size:2.5rem;letter-spacing:0.04em;line-height:1;">Plan a tu medida</h3>
+      <p style="font-size:0.88rem;color:var(--dim);line-height:1.72;max-width:520px;">¿Tu proyecto no encaja en ningún plan estándar? Contanos tu idea y armamos una propuesta 100% personalizada para tu negocio. Sin moldes, sin límites.</p>
+      <div style="display:flex;flex-wrap:wrap;justify-content:center;gap:0.6rem;">
+        <span style="font-size:0.75rem;color:var(--dim);border:1px solid var(--border-mid);padding:0.3rem 0.8rem;">✓ Presupuesto sin compromiso</span>
+        <span style="font-size:0.75rem;color:var(--dim);border:1px solid var(--border-mid);padding:0.3rem 0.8rem;">✓ Solución a medida</span>
+        <span style="font-size:0.75rem;color:var(--dim);border:1px solid var(--border-mid);padding:0.3rem 0.8rem;">✓ Respuesta en 24hs</span>
+      </div>
+      <a href="https://wa.me/5491135962017?text=Hola%2C%20buenos%20d%C3%ADas.%20Vi%20su%20p%C3%A1gina%20y%20me%20interesa%20hablar%20sobre%20un%20proyecto%20a%20medida.%20Mi%20idea%20es%20la%20siguiente%3A%20" target="_blank" rel="noopener noreferrer" class="btn btn-primary" style="margin-top:0.5rem;">Quiero un plan custom →</a>
+    </div>
+
+    <!-- NOTA: Dominio y Hosting -->
+    <div style="margin:2rem auto 0;max-width:680px;padding:0 1.5rem;">
+      <p style="display:flex;align-items:flex-start;gap:0.6rem;font-size:0.76rem;color:rgba(240,240,240,0.4);line-height:1.7;margin:0;border-top:1px solid rgba(255,255,255,0.07);padding-top:1.2rem;">
+        <svg style="width:13px;height:13px;flex-shrink:0;margin-top:2px;opacity:0.5;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+        <span><strong style="color:rgba(240,240,240,0.6);font-weight:500;">Dominio y hosting no incluidos.</strong> Se contratan por separado a nombre del cliente para que tenga control total. Nos encargamos de toda la configuración.</span>
+      </p>
+    </div>
+
+  </section>
+
+  <!-- ═══════════════════════════════════════════════
+       CASOS REALES
+  ════════════════════════════════════════════════ -->
+  <section id="casos-reales" aria-label="Casos reales" style="background:var(--black);border-top:1px solid var(--border);">
+    <div style="display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:1.5rem;margin-bottom:4rem;">
+      <div>
+        <span class="section-label reveal">Casos reales</span>
+        <h2 class="section-title split-title">Así funciona.</h2>
+      </div>
+      <p class="text-dim reveal" style="max-width:380px;font-size:0.88rem;line-height:1.72;">Cada negocio es diferente, pero el resultado es el mismo: más clientes y menos dolores de cabeza.</p>
+    </div>
+
+    <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:var(--border);border:1px solid var(--border);" class="reveal-group cases-grid">
+
+      <!-- Nadelle.co — caso real -->
+      <div class="reveal" style="background:var(--gray);display:flex;flex-direction:column;gap:0;">
+        <a href="https://nadelleco.vercel.app/" target="_blank" rel="noopener noreferrer" style="display:block;width:100%;aspect-ratio:16/9;overflow:hidden;text-decoration:none;position:relative;">
+          <img src="nadelle.weeb portfolio.jpg" alt="Nadelle.co — tienda online" style="width:100%;height:100%;object-fit:cover;display:block;filter:brightness(0.85);" />
+          <div style="position:absolute;inset:0;background:rgba(0,0,0,0.45);display:flex;align-items:center;justify-content:center;opacity:0;transition:opacity 0.3s;" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0'">
+            <span style="font-size:0.7rem;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;border:1px solid rgba(255,255,255,0.6);padding:0.55rem 1.4rem;color:#fff;">Ver sitio ↗</span>
+          </div>
+        </a>
+        <div style="padding:2rem;display:flex;flex-direction:column;gap:0.8rem;">
+          <span style="font-family:'Bebas Neue',sans-serif;font-size:0.75rem;letter-spacing:0.15em;color:var(--accent);">E-COMMERCE — NADELLE.CO</span>
+          <h3 style="font-family:'Bebas Neue',sans-serif;font-size:1.5rem;letter-spacing:0.04em;line-height:1.1;">De vender por Instagram a tener su propia tienda online</h3>
+          <p style="font-size:0.82rem;color:var(--dim);line-height:1.7;"><strong style="color:var(--white);">Problema:</strong> Vendía body splashes solo por DM, sin sistema de compra propio.</p>
+          <p style="font-size:0.82rem;color:var(--dim);line-height:1.7;"><strong style="color:var(--white);">Solución:</strong> Tienda online con catálogo, pagos integrados y diseño a la altura de la marca.</p>
+          <p style="font-size:0.82rem;color:var(--accent);line-height:1.7;font-weight:600;">Resultado: Ventas 24/7 sin depender de nadie. <a href="https://nadelleco.vercel.app/" target="_blank" rel="noopener noreferrer" style="color:var(--accent);text-decoration:underline;">Ver sitio →</a></p>
+          <p style="font-size:0.82rem;color:var(--dim);line-height:1.7;">También podés ver nuestro trabajo en: <a href="https://black-line-sage.vercel.app" target="_blank" rel="noopener noreferrer" style="color:var(--accent);text-decoration:underline;">black-line-sage.vercel.app ↗</a></p>
+        </div>
+      </div>
+
+      <!-- Placeholder 2 -->
+      <div class="reveal" style="background:var(--gray);display:flex;flex-direction:column;">
+        <div style="width:100%;aspect-ratio:16/9;background:var(--gray-mid);display:flex;align-items:center;justify-content:center;">
+          <span style="font-size:0.7rem;font-weight:600;letter-spacing:0.18em;text-transform:uppercase;color:rgba(255,255,255,0.12);">Próximamente</span>
+        </div>
+        <div style="padding:2rem;display:flex;flex-direction:column;gap:0.8rem;">
+          <span style="font-family:'Bebas Neue',sans-serif;font-size:0.75rem;letter-spacing:0.15em;color:rgba(255,255,255,0.15);">EN PROCESO</span>
+          <h3 style="font-family:'Bebas Neue',sans-serif;font-size:1.5rem;letter-spacing:0.04em;line-height:1.1;color:rgba(255,255,255,0.12);">Nuevo proyecto</h3>
+          <p style="font-size:0.82rem;color:rgba(255,255,255,0.08);line-height:1.7;">Próximo caso en camino.</p>
+        </div>
+      </div>
+
+
+
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════
+       STATS
+  ════════════════════════════════════════════════ -->
+  <section id="stats" aria-label="Cifras">
+    <canvas id="stats-canvas" aria-hidden="true"></canvas>
+
+    <div class="stats-top reveal">
+      <span class="section-label">Números que hablan</span>
+    </div>
+
+    <div class="stats-grid">
+
+      <div class="stat-item-v2 reveal">
+        <div class="stat-v2-inner">
+          <div class="stat-v2-number">
+            <span class="stat-v2-digits">100</span><span class="stat-v2-suffix">%</span>
+          </div>
+          <div class="stat-v2-bar"><div class="stat-v2-fill" data-width="100"></div></div>
+          <div class="stat-v2-label">Clientes satisfechos</div>
+          <p class="stat-v2-desc">Todos nuestros clientes volvieron a trabajar con nosotros o nos recomendaron.</p>
+        </div>
+      </div>
+
+      <div class="stat-item-v2 reveal">
+        <div class="stat-v2-inner">
+          <div class="stat-v2-number">
+            <span class="stat-v2-digits">24</span><span class="stat-v2-suffix">H</span>
+          </div>
+          <div class="stat-v2-bar"><div class="stat-v2-fill" data-width="75"></div></div>
+          <div class="stat-v2-label">Respuesta garantizada</div>
+          <p class="stat-v2-desc">Te contestamos en menos de 24 horas. Tu negocio no puede esperar y nosotros tampoco.</p>
+        </div>
+      </div>
+
+      <div class="stat-item-v2 reveal">
+        <div class="stat-v2-inner">
+          <div class="stat-v2-number">
+            <span class="stat-v2-digits">7</span><span class="stat-v2-suffix">DÍAS</span>
+          </div>
+          <div class="stat-v2-bar"><div class="stat-v2-fill" data-width="85"></div></div>
+          <div class="stat-v2-label">Entrega más rápida</div>
+          <p class="stat-v2-desc">Tu página puede estar online en una semana. Sin demoras, sin excusas.</p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- ═══════════════════════════════════════════════
+       TESTIMONIALS
+  ════════════════════════════════════════════════ -->
+  <section id="testimonials" aria-label="Testimonios" style="background:var(--black);border-top:1px solid var(--border);">
+    <div style="text-align:center;margin-bottom:3rem;">
+      <span class="section-label reveal">Lo que dicen nuestros clientes</span>
+      <h2 class="section-title split-title" style="text-align:center;">Confianza real.</h2>
+    </div>
+
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;max-width:1100px;margin:0 auto;" class="reveal-group testimonials-grid">
+
+      <div class="reveal" style="background:var(--gray);border:1px solid var(--border);padding:2rem;display:flex;flex-direction:column;gap:1rem;">
+        <div style="display:flex;gap:0.15rem;">
+          <span style="color:var(--accent);font-size:1rem;">★</span><span style="color:var(--accent);font-size:1rem;">★</span><span style="color:var(--accent);font-size:1rem;">★</span><span style="color:var(--accent);font-size:1rem;">★</span><span style="color:var(--accent);font-size:1rem;">★</span>
+        </div>
+        <p style="font-size:0.88rem;color:var(--dim);line-height:1.72;font-style:italic;flex:1;">"Les expliqué lo que necesitaba sin saber nada de tecnología y me entendieron perfecto. En 10 días tenía mi página funcionando y ya me llegaron consultas por WhatsApp."</p>
+        <div style="border-top:1px solid var(--border);padding-top:1rem;">
+          <p style="font-size:0.85rem;color:var(--white);font-weight:600;">Martín R.</p>
+          <p style="font-size:0.72rem;color:var(--dim);letter-spacing:0.1em;">BARBERÍA — BUENOS AIRES</p>
+        </div>
+      </div>
+
+      <div class="reveal" style="background:var(--gray);border:1px solid var(--border);padding:2rem;display:flex;flex-direction:column;gap:1rem;">
+        <div style="display:flex;gap:0.15rem;">
+          <span style="color:var(--accent);font-size:1rem;">★</span><span style="color:var(--accent);font-size:1rem;">★</span><span style="color:var(--accent);font-size:1rem;">★</span><span style="color:var(--accent);font-size:1rem;">★</span><span style="color:var(--accent);font-size:1rem;">★</span>
+        </div>
+        <p style="font-size:0.88rem;color:var(--dim);line-height:1.72;font-style:italic;flex:1;">"Nos armaron un sistema de pedidos automático que nos ahorró horas de trabajo. Ahora los clientes piden solos y nosotros nos enfocamos en cocinar."</p>
+        <div style="border-top:1px solid var(--border);padding-top:1rem;">
+          <p style="font-size:0.85rem;color:var(--white);font-weight:600;">Carolina S.</p>
+          <p style="font-size:0.72rem;color:var(--dim);letter-spacing:0.1em;">RESTAURANTE — ZONA NORTE</p>
+        </div>
+      </div>
+
+      <div class="reveal" style="background:var(--gray);border:1px solid var(--border);padding:2rem;display:flex;flex-direction:column;gap:1rem;">
+        <div style="display:flex;gap:0.15rem;">
+          <span style="color:var(--accent);font-size:1rem;">★</span><span style="color:var(--accent);font-size:1rem;">★</span><span style="color:var(--accent);font-size:1rem;">★</span><span style="color:var(--accent);font-size:1rem;">★</span><span style="color:var(--accent);font-size:1rem;">★</span>
+        </div>
+        <p style="font-size:0.88rem;color:var(--dim);line-height:1.72;font-style:italic;flex:1;">"Yo pensaba que tener una web era carísimo y complicado. BlackByte me demostró que no. Ahora mis alumnos me encuentran en Google y no en un flyer."</p>
+        <div style="border-top:1px solid var(--border);padding-top:1rem;">
+          <p style="font-size:0.85rem;color:var(--white);font-weight:600;">Diego L.</p>
+          <p style="font-size:0.72rem;color:var(--dim);letter-spacing:0.1em;">GIMNASIO — CÓRDOBA</p>
+        </div>
+      </div>
+
+      <div class="reveal" style="background:var(--gray);border:1px solid var(--border);padding:2rem;display:flex;flex-direction:column;gap:1rem;">
+        <div style="display:flex;gap:0.15rem;">
+          <span style="color:var(--accent);font-size:1rem;">★</span><span style="color:var(--accent);font-size:1rem;">★</span><span style="color:var(--accent);font-size:1rem;">★</span><span style="color:var(--accent);font-size:1rem;">★</span><span style="color:var(--accent);font-size:1rem;">★</span>
+        </div>
+        <p style="font-size:0.88rem;color:var(--dim);line-height:1.72;font-style:italic;flex:1;">"Teníamos una página vieja y fea que daba vergüenza mostrar. En dos semanas BlackByte nos entregó algo que parece de empresa grande. Los clientes nos preguntan si somos una cadena."</p>
+        <div style="border-top:1px solid var(--border);padding-top:1rem;">
+          <p style="font-size:0.85rem;color:var(--white);font-weight:600;">Lucía M.</p>
+          <p style="font-size:0.72rem;color:var(--dim);letter-spacing:0.1em;">ESTÉTICA — ROSARIO</p>
+        </div>
+      </div>
+
+      <div class="reveal" style="background:var(--gray);border:1px solid var(--border);padding:2rem;display:flex;flex-direction:column;gap:1rem;">
+        <div style="display:flex;gap:0.15rem;">
+          <span style="color:var(--accent);font-size:1rem;">★</span><span style="color:var(--accent);font-size:1rem;">★</span><span style="color:var(--accent);font-size:1rem;">★</span><span style="color:var(--accent);font-size:1rem;">★</span><span style="color:var(--accent);font-size:1rem;">★</span>
+        </div>
+        <p style="font-size:0.88rem;color:var(--dim);line-height:1.72;font-style:italic;flex:1;">"Me armaron el bot de WhatsApp y es una locura. Responde consultas solo, agenda turnos y yo solo entro a confirmar. Recuperé 3 horas por día que antes perdía en el teléfono."</p>
+        <div style="border-top:1px solid var(--border);padding-top:1rem;">
+          <p style="font-size:0.85rem;color:var(--white);font-weight:600;">Sebastián V.</p>
+          <p style="font-size:0.72rem;color:var(--dim);letter-spacing:0.1em;">TALLER MECÁNICO — MENDOZA</p>
+        </div>
+      </div>
+
+      <div class="reveal" style="background:var(--gray);border:1px solid var(--border);padding:2rem;display:flex;flex-direction:column;gap:1rem;">
+        <div style="display:flex;gap:0.15rem;">
+          <span style="color:var(--accent);font-size:1rem;">★</span><span style="color:var(--accent);font-size:1rem;">★</span><span style="color:var(--accent);font-size:1rem;">★</span><span style="color:var(--accent);font-size:1rem;">★</span><span style="color:var(--accent);font-size:1rem;">★</span>
+        </div>
+        <p style="font-size:0.88rem;color:var(--dim);line-height:1.72;font-style:italic;flex:1;">"Abrí mi emprendimiento de indumentaria y necesitaba una tienda online urgente. En menos de dos semanas estaba vendiendo. El primer mes recuperé lo invertido con creces."</p>
+        <div style="border-top:1px solid var(--border);padding-top:1rem;">
+          <p style="font-size:0.85rem;color:var(--white);font-weight:600;">Valentina P.</p>
+          <p style="font-size:0.72rem;color:var(--dim);letter-spacing:0.1em;">TIENDA DE ROPA — CABA</p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════
+       URGENCY
+  ════════════════════════════════════════════════ -->
+  <section id="urgency" aria-label="Disponibilidad" style="background:var(--gray);border-top:1px solid var(--border);text-align:center;padding:5rem 5%;">
+    <div class="reveal" style="max-width:650px;margin:0 auto;">
+      <span style="display:inline-block;font-size:0.65rem;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;background:rgba(0,102,255,0.15);color:var(--accent);padding:0.35rem 1rem;border-radius:2px;margin-bottom:1.5rem;">CUPOS LIMITADOS</span>
+      <h2 style="font-family:'Bebas Neue',sans-serif;font-size:clamp(2.5rem,6vw,4.5rem);line-height:0.95;color:var(--white);margin-bottom:1.2rem;">Trabajamos con máximo 5 clientes por mes.</h2>
+      <p style="font-size:0.92rem;color:var(--dim);line-height:1.72;margin-bottom:2rem;">
+        Para garantizar calidad y dedicación real a cada proyecto, limitamos la cantidad de clientes que tomamos. Si estás leyendo esto, todavía hay lugar.
+      </p>
+      <a href="https://wa.me/5491135962017?text=Hola%2C%20buenos%20d%C3%ADas.%20Vi%20que%20trabajan%20con%20cupos%20limitados%20y%20me%20gustar%C3%ADa%20reservar%20mi%20lugar%20antes%20de%20que%20se%20complete.%20%C2%BFPodr%C3%ADamos%20hablar%3F" target="_blank" rel="noopener noreferrer" class="btn btn-primary">Reservar mi lugar →</a>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════
+       COURSES PREVIEW
+  ════════════════════════════════════════════════ -->
+  <section id="courses" aria-label="Cursos">
+    <canvas id="courses-canvas" aria-hidden="true"></canvas>
+
+    <!-- orbital de fondo, posición absoluta -->
+    <svg class="courses-bg-orbital" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="0.8" aria-hidden="true">
+      <circle cx="50" cy="50" r="44"/>
+      <ellipse cx="50" cy="50" rx="44" ry="18"/>
+      <ellipse cx="50" cy="50" rx="44" ry="18" transform="rotate(60 50 50)"/>
+      <ellipse cx="50" cy="50" rx="44" ry="18" transform="rotate(120 50 50)"/>
+    </svg>
+
+    <div class="courses-center reveal">
+      <span class="section-label">Aprendizaje</span>
+      <h2 class="section-title split-title">Cursos.</h2>
+      <p style="font-size:0.9rem;color:var(--dim);line-height:1.75;max-width:420px;margin:1.2rem auto 2rem;">
+        Formación práctica, directa al punto, orientada a resultados reales.
+      </p>
+      <p style="font-family:'Bebas Neue',sans-serif;font-size:2rem;letter-spacing:0.14em;color:var(--white);margin-bottom:0.4rem;">Coming Soon</p>
+      <p style="font-size:0.7rem;letter-spacing:0.16em;text-transform:uppercase;color:var(--dim);margin-bottom:2rem;">Algo que vale la pena esperar</p>
+      <a href="register.html" class="btn btn-outline">Notificarme</a>
+    </div>
+
+  </section>
+
+  <!-- ═══════════════════════════════════════════════
+       CONTACT
+  ════════════════════════════════════════════════ -->
+  <section id="contact" aria-label="Contacto">
+    <span class="section-label reveal">Hablemos de tu negocio</span>
+    <h2 class="section-title split-title">¿Listo para crecer?</h2>
+    <p class="section-sub reveal">Escribinos hoy y en menos de 24 horas tenés una propuesta personalizada para tu negocio. Sin compromiso.</p>
+
+    <div class="contact-buttons reveal">
+
+      <a href="https://www.instagram.com/blackbytecode/" target="_blank" rel="noopener noreferrer" class="contact-btn" aria-label="Instagram de BlackByte">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+          <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+          <circle cx="12" cy="12" r="4"/>
+          <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/>
+        </svg>
+        Instagram
+      </a>
+
+      <a href="mailto:blackbyte.contacto@gmail.com" class="contact-btn" aria-label="Enviar email a BlackByte">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+          <rect x="2" y="4" width="20" height="16" rx="2"/>
+          <path d="M22 7l-10 7L2 7"/>
+        </svg>
+        blackbyte.contacto@gmail.com
+      </a>
+
+      <a href="https://wa.me/5491135962017?text=Hola%2C%20buenos%20d%C3%ADas.%20Estoy%20interesado%20en%20los%20servicios%20de%20BlackByte.%20%C2%BFPodr%C3%ADan%20contarme%20m%C3%A1s%20sobre%20c%C3%B3mo%20trabajan%20y%20qu%C3%A9%20opciones%20tienen%20disponibles%3F" target="_blank" rel="noopener noreferrer" class="contact-btn" aria-label="Contactar por WhatsApp">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+          <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/>
+        </svg>
+        WhatsApp
+      </a>
+
+      <a href="https://wa.me/5491165313048?text=Hola%2C%20buenos%20d%C3%ADas.%20Soy%20cliente%20de%20BlackByte%20y%20necesito%20asistencia%20con%20mi%20proyecto.%20%C2%BFPodr%C3%ADan%20atenderme%3F" target="_blank" rel="noopener noreferrer" class="contact-btn" aria-label="Soporte por WhatsApp">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+          <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/>
+        </svg>
+        Soporte
+      </a>
+
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════
+       FOOTER
+  ════════════════════════════════════════════════ -->
+  <footer>
+    <a href="index.html" class="footer-logo" aria-label="BlackByte inicio">
+      <svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="3.5" aria-hidden="true">
+        <circle cx="50" cy="50" r="44"/>
+        <ellipse cx="50" cy="50" rx="44" ry="20"/>
+        <ellipse cx="50" cy="50" rx="44" ry="20" transform="rotate(60 50 50)"/>
+        <ellipse cx="50" cy="50" rx="44" ry="20" transform="rotate(120 50 50)"/>
+      </svg>
+      BLACKBYTE
+    </a>
+    <p class="footer-copy">© 2026 BlackByte. Todos los derechos reservados.</p>
+  </footer>
+
+  <!-- ═══════════════ MODALES SERVICIOS ═══════════════ -->
+
+  <div id="modal-diseno" class="svc-modal" role="dialog" aria-modal="true" aria-labelledby="modal-diseno-title">
+    <div class="svc-modal-box">
+      <button class="svc-modal-close" aria-label="Cerrar">✕</button>
+      <span class="svc-modal-num">01</span>
+      <h2 id="modal-diseno-title">Páginas Web</h2>
+      <p>Tu negocio necesita estar en internet. Creamos páginas que no solo se ven bien, sino que convierten visitantes en clientes reales.</p>
+      <ul>
+        <li>Diseño profesional adaptado a tu marca</li>
+        <li>Se ve perfecto en celular y computadora</li>
+        <li>Botón de WhatsApp para recibir consultas al instante</li>
+        <li>Carga rápida (a nadie le gusta esperar)</li>
+        <li>Lista para aparecer en Google</li>
+      </ul>
+      <a href="https://wa.me/5491135962017?text=Hola%2C%20buenos%20d%C3%ADas.%20Vi%20los%20servicios%20de%20BlackByte%20y%20me%20interesa%20hablar%20sobre%20el%20dise%C3%B1o%20de%20una%20p%C3%A1gina%20web%20para%20mi%20negocio.%20%C2%BFPodr%C3%ADamos%20coordinar%20una%20consulta%3F" target="_blank" class="btn btn-primary svc-modal-cta">Quiero mi página →</a>
+    </div>
+  </div>
+
+  <div id="modal-desarrollo" class="svc-modal" role="dialog" aria-modal="true" aria-labelledby="modal-desarrollo-title">
+    <div class="svc-modal-box">
+      <button class="svc-modal-close" aria-label="Cerrar">✕</button>
+      <span class="svc-modal-num">02</span>
+      <h2 id="modal-desarrollo-title">Tiendas Online</h2>
+      <p>Vendé tus productos las 24 horas sin depender de Mercado Libre ni de redes sociales. Tu propia tienda, tu propia marca, tus propias reglas.</p>
+      <ul>
+        <li>Catálogo de productos con fotos y precios</li>
+        <li>Carrito de compras y pagos integrados</li>
+        <li>Gestión de envíos automática</li>
+        <li>Panel para agregar o modificar productos</li>
+        <li>Notificaciones de venta por WhatsApp</li>
+      </ul>
+      <a href="https://wa.me/5491135962017?text=Hola%2C%20buenos%20d%C3%ADas.%20Vi%20los%20servicios%20de%20BlackByte%20y%20me%20interesa%20armar%20una%20tienda%20online%20para%20vender%20mis%20productos.%20%C2%BFPodr%C3%ADamos%20hablar%20sobre%20las%20opciones%3F" target="_blank" class="btn btn-primary svc-modal-cta">Quiero mi tienda →</a>
+    </div>
+  </div>
+
+  <div id="modal-branding" class="svc-modal" role="dialog" aria-modal="true" aria-labelledby="modal-branding-title">
+    <div class="svc-modal-box">
+      <button class="svc-modal-close" aria-label="Cerrar">✕</button>
+      <span class="svc-modal-num">03</span>
+      <h2 id="modal-branding-title">Imagen de Marca</h2>
+      <p>La primera impresión importa. Si tu marca no se ve profesional, tus clientes se van a la competencia. Nosotros lo solucionamos.</p>
+      <ul>
+        <li>Logo profesional que representa tu negocio</li>
+        <li>Colores y tipografías que generan confianza</li>
+        <li>Diseños para redes sociales listos para usar</li>
+        <li>Tarjetas, banners y material impreso</li>
+        <li>Guía de marca para mantener consistencia</li>
+      </ul>
+      <a href="https://wa.me/5491135962017?text=Hola%2C%20buenos%20d%C3%ADas.%20Vi%20los%20servicios%20de%20BlackByte%20y%20me%20interesa%20trabajar%20la%20imagen%20y%20el%20branding%20de%20mi%20negocio.%20%C2%BFPodr%C3%ADamos%20coordinar%20una%20consulta%3F" target="_blank" class="btn btn-primary svc-modal-cta">Quiero mi marca →</a>
+    </div>
+  </div>
+
+  <div id="modal-seo" class="svc-modal" role="dialog" aria-modal="true" aria-labelledby="modal-seo-title">
+    <div class="svc-modal-box">
+      <button class="svc-modal-close" aria-label="Cerrar">✕</button>
+      <span class="svc-modal-num">04</span>
+      <h2 id="modal-seo-title">Primero en Google</h2>
+      <p>Si alguien busca "barbería cerca mío" o "gimnasio en [tu zona]" y no aparecés, estás perdiendo clientes todos los días. Nosotros te ponemos ahí.</p>
+      <ul>
+        <li>Tu negocio en Google Maps y búsquedas locales</li>
+        <li>Optimización para que Google te muestre primero</li>
+        <li>Perfil de Google Business completo y optimizado</li>
+        <li>Estrategia de contenido para atraer visitas</li>
+        <li>Reportes mensuales para que veas los resultados</li>
+      </ul>
+      <a href="https://wa.me/5491135962017?text=Hola%2C%20buenos%20d%C3%ADas.%20Vi%20los%20servicios%20de%20BlackByte%20y%20me%20interesa%20posicionar%20mi%20negocio%20en%20Google.%20%C2%BFPodr%C3%ADan%20contarme%20c%C3%B3mo%20trabajan%20el%20SEO%3F" target="_blank" class="btn btn-primary svc-modal-cta">Quiero aparecer en Google →</a>
+    </div>
+  </div>
+
+  <div id="modal-apps" class="svc-modal" role="dialog" aria-modal="true" aria-labelledby="modal-apps-title">
+    <div class="svc-modal-box">
+      <button class="svc-modal-close" aria-label="Cerrar">✕</button>
+      <span class="svc-modal-num">05</span>
+      <h2 id="modal-apps-title">Sistemas a Medida</h2>
+      <p>¿Usás planillas de Excel para todo? ¿Anotás turnos en un cuaderno? Te construimos un sistema que haga eso por vos, mejor y más rápido.</p>
+      <ul>
+        <li>Sistema de turnos online para tus clientes</li>
+        <li>Control de stock e inventario</li>
+        <li>Gestión de pedidos y entregas</li>
+        <li>Panel de control fácil de usar</li>
+        <li>Funciona desde el celular</li>
+      </ul>
+      <a href="https://wa.me/5491135962017?text=Hola%2C%20buenos%20d%C3%ADas.%20Vi%20los%20servicios%20de%20BlackByte%20y%20me%20interesa%20desarrollar%20un%20sistema%20a%20medida%20para%20gestionar%20mi%20negocio.%20%C2%BFPodr%C3%ADamos%20hablar%20sobre%20lo%20que%20necesito%3F" target="_blank" class="btn btn-primary svc-modal-cta">Quiero mi sistema →</a>
+    </div>
+  </div>
+
+  <div id="modal-automatizacion" class="svc-modal" role="dialog" aria-modal="true" aria-labelledby="modal-automatizacion-title">
+    <div class="svc-modal-box">
+      <button class="svc-modal-close" aria-label="Cerrar">✕</button>
+      <span class="svc-modal-num">06</span>
+      <h2 id="modal-automatizacion-title">Automatización</h2>
+      <p>¿Cuántas horas por semana perdés contestando siempre lo mismo, mandando recordatorios o pasando datos de un lado a otro? Nosotros hacemos que eso se haga solo.</p>
+      <ul>
+        <li>Bot de WhatsApp que responde consultas frecuentes</li>
+        <li>Recordatorios automáticos de turnos</li>
+        <li>Reportes que se generan solos</li>
+        <li>Conexión entre tus herramientas (planillas, CRM, etc.)</li>
+        <li>Notificaciones automáticas para vos y tus clientes</li>
+      </ul>
+      <a href="https://wa.me/5491135962017?text=Hola%2C%20buenos%20d%C3%ADas.%20Vi%20los%20servicios%20de%20BlackByte%20y%20me%20interesa%20automatizar%20procesos%20de%20mi%20negocio%20%28respuestas%2C%20turnos%2C%20recordatorios%29.%20%C2%BFPodr%C3%ADamos%20coordinar%20una%20consulta%3F" target="_blank" class="btn btn-primary svc-modal-cta">Quiero automatizar →</a>
+    </div>
+  </div>
+
+  <style>
+    .svc-modal {
+      display: none;
+      position: fixed; inset: 0;
+      z-index: 2000;
+      background: rgba(0,0,0,.75);
+      backdrop-filter: blur(6px);
+      align-items: center;
+      justify-content: center;
+      padding: 1.5rem;
+    }
+    .svc-modal.open { display: flex; animation: modal-in .25s ease; }
+    @keyframes modal-in {
+      from { opacity: 0; transform: scale(.97); }
+      to   { opacity: 1; transform: scale(1); }
+    }
+    .svc-modal-box {
+      background: #111;
+      border: 1px solid rgba(255,255,255,.1);
+      max-width: 520px;
+      width: 100%;
+      padding: 2.5rem 2rem;
+      position: relative;
+    }
+    .svc-modal-close {
+      position: absolute; top: 1.2rem; right: 1.2rem;
+      background: none; border: none;
+      color: rgba(240,240,240,.4);
+      font-size: 1rem; cursor: pointer;
+      transition: color .2s;
+    }
+    .svc-modal-close:hover { color: var(--white); }
+    .svc-modal-num {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: .8rem; letter-spacing: .15em;
+      color: rgba(240,240,240,.2);
+      display: block; margin-bottom: 1rem;
+    }
+    .svc-modal-box h2 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 2.4rem; letter-spacing: .04em;
+      margin-bottom: 1rem;
+    }
+    .svc-modal-box p {
+      font-size: .88rem; color: rgba(240,240,240,.55);
+      line-height: 1.72; margin-bottom: 1.5rem;
+    }
+    .svc-modal-box ul {
+      list-style: none; display: flex;
+      flex-direction: column; gap: .6rem;
+      margin-bottom: 2rem;
+    }
+    .svc-modal-box ul li {
+      font-size: .82rem; color: rgba(240,240,240,.7);
+      padding-left: 1rem; position: relative;
+    }
+    .svc-modal-box ul li::before {
+      content: '—';
+      position: absolute; left: 0;
+      color: rgba(240,240,240,.25);
+    }
+    .svc-modal-cta { display: inline-block; }
+  </style>
+
+  <script src="js/auth.js"></script>
+  <script src="js/main.js"></script>
+  <script>
+    /* Modales servicios */
+    document.querySelectorAll('.service-card[data-modal]').forEach(card => {
+      card.style.cursor = 'pointer';
+      card.addEventListener('click', () => {
+        document.getElementById(card.dataset.modal).classList.add('open');
+        document.body.style.overflow = 'hidden';
+      });
+    });
+    document.querySelectorAll('.svc-modal').forEach(modal => {
+      modal.addEventListener('click', e => {
+        if (e.target === modal || e.target.classList.contains('svc-modal-close')) {
+          modal.classList.remove('open');
+          document.body.style.overflow = '';
+        }
+      });
+      modal.querySelector('.svc-modal-cta').addEventListener('click', () => {
+        modal.classList.remove('open');
+        document.body.style.overflow = '';
+      });
+    });
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape') {
+        document.querySelectorAll('.svc-modal.open').forEach(m => m.classList.remove('open'));
+        document.body.style.overflow = '';
+      }
+    });
+  </script>
+  <script>
+    /* Hide desktop "Iniciar sesión" link if session is active */
+    (function () {
+      try {
+        const s = localStorage.getItem('bb_session');
+        if (s) {
+          const el = document.querySelector('.nav-desktop-login');
+          if (el) el.style.display = 'none';
+        }
+      } catch (_) {}
+    })();
+  </script>
+
+  <!-- ═══════════════ CONTACT BAR ═══════════════ -->
+  <nav class="contact-bar" aria-label="Contacto rápido">
+    <a href="https://www.instagram.com/blackbytecode/" target="_blank" rel="noopener noreferrer" class="contact-bar-item" aria-label="Instagram">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+      <span>@blackbytecode</span>
+    </a>
+    <div class="contact-bar-divider"></div>
+    <a href="mailto:blackbyte.contacto@gmail.com" class="contact-bar-item" aria-label="Email">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M22 7l-10 7L2 7"/></svg>
+      <span>blackbyte.contacto@gmail.com</span>
+    </a>
+    <div class="contact-bar-divider"></div>
+    <a href="https://wa.me/5491135962017?text=Hola%2C%20buenos%20d%C3%ADas.%20Estoy%20interesado%20en%20los%20servicios%20de%20BlackByte.%20%C2%BFPodr%C3%ADan%20contarme%20m%C3%A1s%20sobre%20c%C3%B3mo%20trabajan%20y%20qu%C3%A9%20opciones%20tienen%20disponibles%3F" target="_blank" rel="noopener noreferrer" class="contact-bar-item" aria-label="WhatsApp">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+      <span>WhatsApp</span>
+    </a>
+    <div class="contact-bar-divider"></div>
+    <a href="https://wa.me/5491165313048?text=Hola%2C%20buenos%20d%C3%ADas.%20Soy%20cliente%20de%20BlackByte%20y%20necesito%20asistencia%20con%20mi%20proyecto.%20%C2%BFPodr%C3%ADan%20atenderme%3F" target="_blank" rel="noopener noreferrer" class="contact-bar-item" aria-label="Soporte">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
+      <span>Soporte</span>
+    </a>
+  </nav>
+
+</body>
+</html>
