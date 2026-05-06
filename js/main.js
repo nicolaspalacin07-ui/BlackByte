@@ -108,13 +108,19 @@ if (heroTitle) {
   });
 }
 
-/* ─── Hero Parallax ────────────────────────────────────── */
+/* ─── Hero Orbital Spin + Parallax ────────────────────── */
 const heroOrbital = document.querySelector('.hero-bg-orbital');
 if (heroOrbital) {
-  window.addEventListener('scroll', () => {
-    const y = window.scrollY;
-    heroOrbital.style.transform = `translateY(calc(-50% + ${y * 0.18}px)) rotate(${y * 0.04}deg)`;
-  }, { passive: true });
+  let orbitalRot = 0;
+  let orbitalLast = performance.now();
+  (function spinOrbital() {
+    const now = performance.now();
+    orbitalRot = (orbitalRot + (now - orbitalLast) * 0.012) % 360;
+    orbitalLast = now;
+    const scrollY = window.scrollY;
+    heroOrbital.style.transform = `translateY(calc(-50% + ${scrollY * 0.18}px)) rotate(${orbitalRot}deg)`;
+    requestAnimationFrame(spinOrbital);
+  })();
 }
 
 /* ─── Service Cards 3D Tilt ────────────────────────────── */
@@ -270,7 +276,7 @@ if (sections.length && navItems.length) {
   Object.assign(bar.style, {
     position: 'fixed', top: 0, left: 0,
     height: '2px', width: '0%',
-    background: 'linear-gradient(90deg, #0066ff, #3388ff)',
+    background: 'linear-gradient(90deg, #6b1010, #9b1c1c, #a07828)',
     zIndex: '10000', pointerEvents: 'none',
     transition: 'width 0.1s linear',
     opacity: '1'
@@ -386,15 +392,23 @@ if (sections.length && navItems.length) {
   })();
 })();
 
-/* ─── Hero Mouse Glow ──────────────────────────────────── */
+/* ─── Hero Mouse Gradient ──────────────────────────────── */
 (function initHeroGlow() {
   const hero = document.getElementById('hero');
   const glow = document.getElementById('hero-glow');
   if (!hero || !glow) return;
+
+  Object.assign(glow.style, {
+    position: 'absolute', inset: '0',
+    pointerEvents: 'none', zIndex: '0',
+    background: 'radial-gradient(600px circle at 30% 40%, rgba(160,120,40,0.08) 0%, transparent 70%)'
+  });
+
   hero.addEventListener('mousemove', e => {
     const r = hero.getBoundingClientRect();
-    glow.style.left = (e.clientX - r.left) + 'px';
-    glow.style.top  = (e.clientY - r.top)  + 'px';
+    const x = ((e.clientX - r.left) / r.width  * 100).toFixed(1);
+    const y = ((e.clientY - r.top)  / r.height * 100).toFixed(1);
+    glow.style.background = `radial-gradient(500px circle at ${x}% ${y}%, rgba(155,28,28,0.12) 0%, rgba(160,120,40,0.06) 40%, transparent 70%)`;
   }, { passive: true });
 })();
 
@@ -444,7 +458,11 @@ if (sections.length && navItems.length) {
 
       ctx.beginPath();
       ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
-      ctx.fillStyle = `rgba(240,240,240,${p.alpha * p.life})`;
+      // mix crimson and gold for particles in hero
+      const r = Math.random() > 0.6 ? 160 : 245;
+      const g = Math.random() > 0.6 ? 80  : 220;
+      const b = Math.random() > 0.6 ? 40  : 210;
+      ctx.fillStyle = `rgba(${r},${g},${b},${p.alpha * p.life})`;
       ctx.fill();
     });
     requestAnimationFrame(loop);
@@ -517,7 +535,6 @@ if (sections.length && navItems.length) {
 (function initParallax() {
   const layers = [
     { sel: '.hero-content',    speed: 0.12 },
-    { sel: '.hero-bg-orbital', speed: 0.22 },
     { sel: '#hero-glow',       speed: 0.08 },
   ];
   const els = layers.map(l => ({ el: document.querySelector(l.sel), speed: l.speed }))
@@ -599,6 +616,62 @@ if (sections.length && navItems.length) {
 
     requestAnimationFrame(loop);
   })();
+})();
+
+/* ─── Paper Section Dust Particles ────────────────────── */
+(function initPaperDust() {
+  document.querySelectorAll('.paper-section').forEach(section => {
+    const canvas = document.createElement('canvas');
+    Object.assign(canvas.style, {
+      position: 'absolute', inset: '0',
+      width: '100%', height: '100%',
+      pointerEvents: 'none', zIndex: '0'
+    });
+    section.insertBefore(canvas, section.firstChild);
+
+    const ctx = canvas.getContext('2d');
+    let W, H, particles = [];
+
+    function resize() {
+      W = canvas.width  = section.offsetWidth;
+      H = canvas.height = section.offsetHeight;
+    }
+
+    function rand(a, b) { return Math.random() * (b - a) + a; }
+
+    function mkParticle() {
+      return {
+        x: rand(0, W), y: rand(0, H),
+        vx: rand(-0.12, 0.12), vy: rand(-0.18, -0.04),
+        size: rand(0.8, 2.2),
+        alpha: rand(0.04, 0.14),
+        // warm tones: dusty rose, gold, brown
+        hue: Math.random() > 0.5 ? `155,28,28` : `160,120,40`,
+        life: rand(0.5, 1)
+      };
+    }
+
+    resize();
+    const count = Math.min(Math.floor((W * H) / 14000), 80);
+    for (let i = 0; i < count; i++) particles.push(mkParticle());
+    window.addEventListener('resize', resize, { passive: true });
+
+    (function loop() {
+      ctx.clearRect(0, 0, W, H);
+      particles.forEach((p, i) => {
+        p.x += p.vx;
+        p.y += p.vy;
+        p.life -= 0.0008;
+        if (p.life <= 0 || p.y < -5) particles[i] = mkParticle();
+
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(${p.hue},${p.alpha * p.life})`;
+        ctx.fill();
+      });
+      requestAnimationFrame(loop);
+    })();
+  });
 })();
 
 /* ─── Split-char title animation ───────────────────────── */

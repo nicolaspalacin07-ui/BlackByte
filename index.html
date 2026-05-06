@@ -8,7 +8,7 @@
   <link rel="icon" type="image/svg+xml" href="favicon.svg" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,900;1,400;1,700&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="css/style.css" />
   <style>
     /* ── Hero ─────────────────────────────────────── */
@@ -30,61 +30,29 @@
       z-index: 0;
     }
 
-    /* animated gradient blobs */
+    /* subtle vignette */
     #hero::before {
       content: '';
       position: absolute;
-      top: -10%;
-      left: -20%;
-      width: 80vw;
-      height: 80vw;
-      max-width: 700px;
-      max-height: 700px;
-      border-radius: 50%;
-      background: radial-gradient(circle, rgba(255,255,255,0.05) 0%, transparent 65%);
-      animation: hero-blob 8s ease-in-out infinite alternate;
+      inset: 0;
+      background: radial-gradient(ellipse 80% 60% at 30% 40%, rgba(201,168,76,0.06) 0%, transparent 65%);
       pointer-events: none;
       z-index: 0;
     }
 
-    #hero::after {
-      content: '';
-      position: absolute;
-      bottom: -15%;
-      right: -15%;
-      width: 70vw;
-      height: 70vw;
-      max-width: 600px;
-      max-height: 600px;
-      border-radius: 50%;
-      background: radial-gradient(circle, rgba(255,255,255,0.035) 0%, transparent 65%);
-      animation: hero-blob 10s ease-in-out infinite alternate-reverse;
-      pointer-events: none;
-      z-index: 0;
-    }
-
-    @keyframes hero-blob {
-      0%   { transform: translate(0, 0) scale(1); }
-      100% { transform: translate(6%, 8%) scale(1.12); }
-    }
+    #hero::after { content: none; }
 
     .hero-bg-orbital {
       position: absolute;
       top: 50%;
       right: -8%;
       transform: translateY(-50%);
-      width: min(700px, 75vw);
-      height: min(700px, 75vw);
-      opacity: 0.04;
+      width: min(600px, 65vw);
+      height: min(600px, 65vw);
+      opacity: 0.08;
       pointer-events: none;
       z-index: 0;
-      color: var(--white);
-      animation: orbital-spin 30s linear infinite;
-    }
-
-    @keyframes orbital-spin {
-      from { transform: translateY(-50%) rotate(0deg); }
-      to   { transform: translateY(-50%) rotate(360deg); }
+      color: var(--accent);
     }
 
     .hero-content {
@@ -101,7 +69,7 @@
       font-weight: 600;
       letter-spacing: 0.22em;
       text-transform: uppercase;
-      color: var(--dim);
+      color: var(--dark-dim);
       margin-bottom: 1.6rem;
     }
 
@@ -110,66 +78,33 @@
       display: inline-block;
       width: 6px;
       height: 6px;
-      background: var(--white);
+      background: var(--gold);
       border-radius: 50%;
-      opacity: 0.45;
+      opacity: 1;
     }
 
-    /* Glitch Effect */
     .hero-title {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: clamp(5rem, 14vw, 13rem);
-      line-height: 0.92;
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(4rem, 11vw, 10rem);
+      font-weight: 900;
+      line-height: 1.0;
       position: relative;
-      color: var(--white);
-      letter-spacing: 0.02em;
+      color: var(--dark-text);
+      letter-spacing: -0.02em;
       margin-bottom: 1.8rem;
       display: inline-block;
     }
-
-    .hero-title::before,
-    .hero-title::after {
-      content: attr(data-text);
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      color: var(--white);
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: inherit;
-      line-height: inherit;
-      letter-spacing: inherit;
-    }
-
-    .hero-title::before {
-      clip-path: polygon(0 20%, 100% 20%, 100% 48%, 0 48%);
-      animation: glitch-a 2.5s infinite;
-    }
-
-    .hero-title::after {
-      clip-path: polygon(0 55%, 100% 55%, 100% 82%, 0 82%);
-      animation: glitch-b 2.5s infinite;
-    }
-
-    @keyframes glitch-a {
-      0%, 85%, 100% { transform: translateX(0);   opacity: 0; }
-      86%            { transform: translateX(-6px); opacity: 0.6; }
-      88%            { transform: translateX(6px); }
-      90%            { transform: translateX(0);   opacity: 0; }
-    }
-
-    @keyframes glitch-b {
-      0%, 87%, 100% { transform: translateX(0);   opacity: 0; }
-      88%            { transform: translateX(7px); opacity: 0.5; }
-      90%            { transform: translateX(-5px); }
-      92%            { transform: translateX(0);   opacity: 0; }
+    .hero-title span.highlight {
+      background: linear-gradient(135deg, #9b1c1c 0%, #a07828 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
     }
 
     .hero-subtitle {
       font-size: clamp(1rem, 2.2vw, 1.22rem);
       font-weight: 400;
-      color: var(--dim);
+      color: var(--dark-dim);
       max-width: 540px;
       line-height: 1.65;
       margin-bottom: 2.5rem;
@@ -193,13 +128,13 @@
       font-weight: 600;
       letter-spacing: 0.18em;
       text-transform: uppercase;
-      color: rgba(240,240,240,0.28);
+      color: rgba(201,168,76,0.5);
     }
 
     .scroll-indicator-line {
       width: 40px;
       height: 1px;
-      background: rgba(240,240,240,0.15);
+      background: rgba(58,6,6,0.5);
       position: relative;
       overflow: hidden;
     }
@@ -211,7 +146,7 @@
       top: 0;
       width: 100%;
       height: 100%;
-      background: rgba(240,240,240,0.6);
+      background: var(--gold);
       animation: slide-line 2s ease-in-out infinite;
     }
 
@@ -222,7 +157,7 @@
     }
 
     /* ── Services ─────────────────────────────────── */
-    #services { background: var(--black); }
+    #services { margin-top: 0; }
 
     .services-header {
       display: flex;
@@ -236,59 +171,63 @@
     .services-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 1px;
-      background: var(--border);
-      border: 1px solid var(--border);
+      gap: 1.5rem;
+      background: transparent;
     }
 
     .service-card {
-      background: var(--gray);
+      background: rgba(255,255,255,0.55);
       padding: 2.5rem 2rem;
       display: flex;
       flex-direction: column;
       gap: 1.1rem;
-      transition: background var(--transition);
+      transition: background var(--transition), border-color var(--transition);
       position: relative;
       overflow: hidden;
+      border: 1px solid rgba(122, 64, 40, 0.12);
     }
 
     .service-card::before {
       content: '';
       position: absolute;
       inset: 0;
-      background: linear-gradient(135deg, rgba(255,255,255,0.025) 0%, transparent 60%);
+      background: linear-gradient(135deg, rgba(201,168,76,0.04) 0%, transparent 60%);
       opacity: 0;
       transition: opacity var(--transition);
     }
 
-    .service-card:hover { background: var(--gray-mid); border-top: 2px solid var(--accent); }
+    .service-card:hover { background: #fff; border-top: 2px solid var(--crimson); border-left: 2px solid rgba(155,28,28,0.2); }
     .service-card:hover::before { opacity: 1; }
 
     .service-number {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 0.85rem;
-      letter-spacing: 0.12em;
-      color: var(--accent);
-      opacity: 0.7;
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--crimson);
+      opacity: 0.65;
     }
 
     .service-icon {
       width: 34px;
       height: 34px;
-      color: var(--white);
-      opacity: 0.7;
+      color: var(--crimson);
+      opacity: 0.75;
     }
 
     .service-card h3 {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 1.65rem;
-      letter-spacing: 0.04em;
-      line-height: 1;
+      font-family: 'Playfair Display', serif;
+      font-size: 1.45rem;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+      line-height: 1.2;
+      color: var(--ink);
     }
 
     .service-card p {
       font-size: 0.84rem;
-      color: var(--dim);
+      color: var(--ink-mid);
       line-height: 1.72;
       flex: 1;
     }
@@ -297,19 +236,17 @@
       display: inline-flex;
       align-items: center;
       gap: 0.4rem;
-      color: var(--accent) !important;
-      opacity: 0.6;
+      color: var(--ink-dim);
       font-size: 0.7rem;
       font-weight: 600;
       letter-spacing: 0.12em;
       text-transform: uppercase;
-      color: rgba(240,240,240,0.3);
       margin-top: auto;
       transition: color var(--transition), gap var(--transition);
     }
 
     .service-card:hover .service-arrow {
-      color: var(--white);
+      color: var(--crimson);
       gap: 0.65rem;
     }
 
@@ -331,24 +268,7 @@
       z-index: 0;
     }
 
-    /* scan line */
-    #stats::after {
-      content: '';
-      position: absolute;
-      left: 0; right: 0;
-      height: 2px;
-      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
-      animation: scan-line 5s ease-in-out infinite;
-      pointer-events: none;
-      z-index: 2;
-    }
-
-    @keyframes scan-line {
-      0%   { top: 0%; opacity: 0; }
-      5%   { opacity: 1; }
-      95%  { opacity: 1; }
-      100% { top: 100%; opacity: 0; }
-    }
+    #stats::after { content: none; }
 
     .stats-top {
       padding: 4rem 5% 2rem;
@@ -364,14 +284,6 @@
       z-index: 1;
     }
 
-    /* glowing border animation on hover */
-    @keyframes border-glow {
-      0%, 100% { box-shadow: inset 0 0 0 1px rgba(255,255,255,0.05); }
-      50%       { box-shadow: inset 0 0 0 1px rgba(255,255,255,0.2), 0 0 30px rgba(255,255,255,0.04); }
-    }
-    .stat-item-v2 { animation: border-glow 4s ease-in-out infinite; }
-    .stat-item-v2:nth-child(2) { animation-delay: 1.3s; }
-    .stat-item-v2:nth-child(3) { animation-delay: 2.6s; }
 
     .stat-item-v2 {
       padding: 4rem 5%;
@@ -382,7 +294,7 @@
       transition: background 0.4s;
     }
     .stat-item-v2:last-child { border-right: none; }
-    .stat-item-v2:hover { background: rgba(0,102,255,0.06); border-top: 2px solid var(--accent) !important; }
+    .stat-item-v2:hover { background: rgba(201,168,76,0.05); border-top: 2px solid var(--gold) !important; }
 
     /* corner accent */
     .stat-item-v2::before {
@@ -406,15 +318,15 @@
     }
 
     .stat-v2-number {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: clamp(5rem, 9vw, 10rem);
-      line-height: 0.9;
-      letter-spacing: 0.01em;
-      color: var(--white);
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(4.5rem, 8vw, 9rem);
+      font-weight: 700;
+      line-height: 1.0;
+      letter-spacing: -0.02em;
+      color: var(--accent);
       display: flex;
       align-items: baseline;
       gap: 0.05em;
-      text-shadow: 0 0 40px rgba(0,102,255,0.5), 0 0 80px rgba(0,102,255,0.2);
     }
 
     .stat-v2-suffix {
@@ -423,16 +335,17 @@
     }
 
     .stat-v2-bar {
-      height: 1px;
-      background: rgba(255,255,255,0.08);
+      height: 2px;
+      background: rgba(58,6,6,0.5);
       overflow: hidden;
     }
 
     .stat-v2-fill {
       height: 100%;
       width: 0%;
-      background: linear-gradient(90deg, rgba(255,255,255,0.3), rgba(255,255,255,0.8));
+      background: linear-gradient(90deg, var(--bordeaux), var(--gold));
       transition: width 1.8s cubic-bezier(.23,1,.32,1);
+      box-shadow: 0 0 8px rgba(201,168,76,0.5);
     }
     .stat-v2-fill.animated { width: var(--fill-width, 100%); }
 
@@ -441,12 +354,13 @@
       font-weight: 700;
       letter-spacing: 0.22em;
       text-transform: uppercase;
-      color: rgba(255,255,255,0.5);
+      color: var(--gold);
+      opacity: 0.9;
     }
 
     .stat-v2-desc {
       font-size: 0.84rem;
-      color: var(--dim);
+      color: var(--dark-dim);
       line-height: 1.72;
       max-width: 280px;
     }
@@ -479,7 +393,8 @@
       width: min(560px, 85vw);
       height: min(560px, 85vw);
       transform: translateY(-50%);
-      color: rgba(255,255,255,0.08);
+      color: var(--accent);
+      opacity: 0.15;
       animation: orbital-spin 25s linear infinite;
       pointer-events: none;
       z-index: 0;
@@ -509,17 +424,16 @@
     /* ── Contact ───────────────────────────────────── */
     #contact {
       text-align: center;
-      background: var(--black);
     }
 
     #contact .section-title {
-      font-size: clamp(4rem, 10vw, 9rem);
+      font-size: clamp(3.5rem, 8vw, 7rem);
       margin-bottom: 0.75rem;
     }
 
     .section-sub {
       font-size: 1rem;
-      color: var(--dim);
+      color: var(--dark-dim);
       max-width: 400px;
       margin: 0 auto 3rem;
       line-height: 1.65;
@@ -563,7 +477,8 @@
 
     /* ── Responsive ─────────────────────────────────── */
     @media (max-width: 1024px) {
-      .services-grid   { grid-template-columns: repeat(2, 1fr); }
+      .services-grid     { grid-template-columns: repeat(2, 1fr); }
+      .testimonials-grid { grid-template-columns: repeat(2, 1fr) !important; }
     }
 
     @media (max-width: 768px) {
@@ -586,6 +501,7 @@
     @media (max-width: 480px) {
       .services-grid   { grid-template-columns: 1fr; }
       .hero-ctas       { flex-direction: column; align-items: flex-start; }
+      .hero-title      { font-size: clamp(2.8rem, 13vw, 5rem); }
       .hero-bg-orbital {
         width: 85vw;
         height: 85vw;
@@ -635,7 +551,7 @@
   <!-- ═══════════════════════════════════════════════
        HERO
   ════════════════════════════════════════════════ -->
-  <section id="hero" aria-label="Inicio">
+  <section id="hero" class="dark-section" aria-label="Inicio">
 
     <div id="hero-grid" aria-hidden="true"></div>
     <div id="hero-glow" aria-hidden="true"></div>
@@ -649,11 +565,11 @@
 
     <div class="hero-content">
       <p class="hero-tag reveal">Tu negocio merece ser visible</p>
-      <h1 class="hero-title reveal" data-text="MÁS CLIENTES.">MÁS CLIENTES.</h1>
+      <h1 class="hero-title reveal">MÁS <span class="highlight">CLIENTES.</span></h1>
       <p class="hero-subtitle reveal">Creamos páginas web y sistemas que atraen clientes, generan ventas y automatizan tu negocio. Sin complicaciones, sin tecnicismos. Solo resultados.</p>
       <div class="hero-ctas reveal">
-        <a href="https://wa.me/5491135962017?text=Hola%2C%20buenos%20d%C3%ADas.%20Vi%20su%20p%C3%A1gina%20web%20y%20me%20gustar%C3%ADa%20saber%20c%C3%B3mo%20pueden%20ayudarme%20a%20conseguir%20m%C3%A1s%20clientes%20para%20mi%20negocio.%20%C2%BFPodr%C3%ADamos%20hablar%3F" target="_blank" rel="noopener noreferrer" class="btn btn-primary">Quiero más clientes →</a>
-        <a href="#packages" class="btn btn-outline">Ver planes y precios</a>
+        <a href="https://wa.me/5491135962017?text=Hola%2C%20buenos%20d%C3%ADas.%20Vi%20su%20p%C3%A1gina%20web%20y%20me%20gustar%C3%ADa%20saber%20c%C3%B3mo%20pueden%20ayudarme%20a%20conseguir%20m%C3%A1s%20clientes%20para%20mi%20negocio.%20%C2%BFPodr%C3%ADamos%20hablar%3F" target="_blank" rel="noopener noreferrer" class="btn btn-primary shimmer">Quiero más clientes →</a>
+        <a href="#casos-reales" class="btn btn-outline">Ver casos reales</a>
       </div>
     </div>
 
@@ -691,7 +607,7 @@
   <!-- ═══════════════════════════════════════════════
        SERVICES
   ════════════════════════════════════════════════ -->
-  <section id="services" aria-label="Servicios">
+  <section id="services" class="paper-section" aria-label="Servicios">
 
     <div class="services-header">
       <div>
@@ -705,7 +621,7 @@
 
     <div class="services-grid reveal-group">
 
-      <div class="service-card reveal" data-modal="modal-diseno">
+      <div class="service-card reveal shimmer" data-modal="modal-diseno">
         <span class="service-number">01</span>
         <svg class="service-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
           <rect x="2" y="3" width="20" height="14" rx="2"/>
@@ -716,7 +632,7 @@
         <span class="service-arrow">Ver más ↗</span>
       </div>
 
-      <div class="service-card reveal" data-modal="modal-desarrollo">
+      <div class="service-card reveal shimmer" data-modal="modal-desarrollo">
         <span class="service-number">02</span>
         <svg class="service-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
           <polyline points="16 18 22 12 16 6"/>
@@ -727,7 +643,7 @@
         <span class="service-arrow">Ver más ↗</span>
       </div>
 
-      <div class="service-card reveal" data-modal="modal-branding">
+      <div class="service-card reveal shimmer" data-modal="modal-branding">
         <span class="service-number">03</span>
         <svg class="service-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
           <circle cx="12" cy="12" r="3"/>
@@ -738,7 +654,7 @@
         <span class="service-arrow">Ver más ↗</span>
       </div>
 
-      <div class="service-card reveal" data-modal="modal-seo">
+      <div class="service-card reveal shimmer" data-modal="modal-seo">
         <span class="service-number">04</span>
         <svg class="service-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
           <circle cx="11" cy="11" r="8"/>
@@ -751,7 +667,7 @@
         <span class="service-arrow">Ver más ↗</span>
       </div>
 
-      <div class="service-card reveal" data-modal="modal-apps">
+      <div class="service-card reveal shimmer" data-modal="modal-apps">
         <span class="service-number">05</span>
         <svg class="service-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
           <rect x="5" y="2" width="14" height="20" rx="2"/>
@@ -762,7 +678,7 @@
         <span class="service-arrow">Ver más ↗</span>
       </div>
 
-      <div class="service-card reveal" data-modal="modal-automatizacion">
+      <div class="service-card reveal shimmer" data-modal="modal-automatizacion">
         <span class="service-number">06</span>
         <svg class="service-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
           <path d="M12 2L2 7l10 5 10-5-10-5z"/>
@@ -777,53 +693,85 @@
     </div>
   </section>
 
-  <section id="casos-reales" aria-label="Casos reales" style="background:var(--black);border-top:1px solid var(--border);">
+  <section id="casos-reales" class="paper-section" aria-label="Casos reales" style="border-top:1px solid var(--border);">
     <div style="display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:1.5rem;margin-bottom:4rem;">
       <div>
         <span class="section-label reveal">Casos reales</span>
         <h2 class="section-title split-title">Así funciona.</h2>
       </div>
-      <p class="text-dim reveal" style="max-width:380px;font-size:0.88rem;line-height:1.72;">Cada negocio es diferente, pero el resultado es el mismo: más clientes y menos dolores de cabeza.</p>
+      <p class="reveal" style="max-width:380px;font-size:0.88rem;line-height:1.72;color:var(--ink-mid);">Cada negocio es diferente, pero el resultado es el mismo: más clientes y menos dolores de cabeza.</p>
     </div>
 
-    <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:var(--border);border:1px solid var(--border);" class="reveal-group cases-grid">
+    <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:1.5rem;" class="reveal-group cases-grid">
 
       <!-- Nadelle.co — caso real -->
-      <div class="reveal" style="background:var(--gray);display:flex;flex-direction:column;gap:0;">
+      <div class="reveal" style="background:#fff9f6;border:1px solid rgba(155,28,28,0.12);border-radius:4px;display:flex;flex-direction:column;gap:0;overflow:hidden;">
         <a href="https://nadelleco.vercel.app/" target="_blank" rel="noopener noreferrer" style="display:block;width:100%;aspect-ratio:16/9;overflow:hidden;text-decoration:none;position:relative;">
           <img src="nadelleejemplo.png" alt="Nadelle.co — tienda online" style="width:100%;height:100%;object-fit:cover;display:block;filter:brightness(0.85);" />
-          <div style="position:absolute;inset:0;background:rgba(0,0,0,0.45);display:flex;align-items:center;justify-content:center;opacity:0;transition:opacity 0.3s;" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0'">
-            <span style="font-size:0.7rem;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;border:1px solid rgba(255,255,255,0.6);padding:0.55rem 1.4rem;color:#fff;">Ver sitio ↗</span>
+          <div style="position:absolute;inset:0;background:rgba(40,6,6,0.8);display:flex;align-items:center;justify-content:center;opacity:0;transition:opacity 0.3s;" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0'">
+            <span style="font-size:0.7rem;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;border:1px solid var(--gold);padding:0.55rem 1.4rem;color:var(--gold);">Ver sitio ↗</span>
           </div>
         </a>
         <div style="padding:2rem;display:flex;flex-direction:column;gap:0.8rem;">
-          <span style="font-family:'Bebas Neue',sans-serif;font-size:0.75rem;letter-spacing:0.15em;color:var(--accent);">E-COMMERCE — NADELLE.CO</span>
-          <h3 style="font-family:'Bebas Neue',sans-serif;font-size:1.5rem;letter-spacing:0.04em;line-height:1.1;">De vender por Instagram a tener su propia tienda online</h3>
-          <p style="font-size:0.82rem;color:var(--dim);line-height:1.7;"><strong style="color:var(--white);">Problema:</strong> Vendía body splashes solo por DM, sin sistema de compra propio.</p>
-          <p style="font-size:0.82rem;color:var(--dim);line-height:1.7;"><strong style="color:var(--white);">Solución:</strong> Tienda online con catálogo, pagos integrados y diseño a la altura de la marca.</p>
+          <span style="font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:0.65rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--accent);">E-COMMERCE — NADELLE.CO</span>
+          <h3 style="font-family:'Playfair Display',serif;font-weight:700;font-size:1.4rem;letter-spacing:-0.01em;line-height:1.25;">De vender por Instagram a tener su propia tienda online</h3>
+          <p style="font-size:0.82rem;color:var(--ink-mid);line-height:1.7;"><strong style="color:var(--ink);">Problema:</strong> Vendía body splashes solo por DM, sin sistema de compra propio.</p>
+          <p style="font-size:0.82rem;color:var(--ink-mid);line-height:1.7;"><strong style="color:var(--ink);">Solución:</strong> Tienda online con catálogo, pagos integrados y diseño a la altura de la marca.</p>
           <p style="font-size:0.82rem;color:var(--accent);line-height:1.7;font-weight:600;">Resultado: Ventas 24/7 sin depender de nadie. <a href="https://nadelleco.vercel.app/" target="_blank" rel="noopener noreferrer" style="color:var(--accent);text-decoration:underline;">Ver sitio →</a></p>
-          <p style="font-size:0.82rem;color:var(--dim);line-height:1.7;">También podés ver nuestro trabajo en: <a href="https://black-line-sage.vercel.app" target="_blank" rel="noopener noreferrer" style="color:var(--accent);text-decoration:underline;">black-line-sage.vercel.app ↗</a></p>
+          <p style="font-size:0.82rem;color:var(--ink-mid);line-height:1.7;">También podés ver nuestro trabajo en: <a href="https://black-line-sage.vercel.app" target="_blank" rel="noopener noreferrer" style="color:var(--accent);text-decoration:underline;">black-line-sage.vercel.app ↗</a></p>
         </div>
       </div>
 
       <!-- Black Line -->
-      <div class="reveal" style="background:var(--gray);display:flex;flex-direction:column;gap:0;">
+      <div class="reveal" style="background:#fff9f6;border:1px solid rgba(155,28,28,0.12);border-radius:4px;display:flex;flex-direction:column;gap:0;overflow:hidden;">
         <a href="https://black-line-sage.vercel.app" target="_blank" rel="noopener noreferrer" style="display:block;width:100%;aspect-ratio:16/9;overflow:hidden;text-decoration:none;position:relative;">
           <img src="blacklineejemplo.png" alt="Black Line — sitio web" style="width:100%;height:100%;object-fit:cover;display:block;filter:brightness(0.85);" />
-          <div style="position:absolute;inset:0;background:rgba(0,0,0,0.45);display:flex;align-items:center;justify-content:center;opacity:0;transition:opacity 0.3s;" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0'">
-            <span style="font-size:0.7rem;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;border:1px solid rgba(255,255,255,0.6);padding:0.55rem 1.4rem;color:#fff;">Ver sitio ↗</span>
+          <div style="position:absolute;inset:0;background:rgba(40,6,6,0.8);display:flex;align-items:center;justify-content:center;opacity:0;transition:opacity 0.3s;" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0'">
+            <span style="font-size:0.7rem;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;border:1px solid var(--gold);padding:0.55rem 1.4rem;color:var(--gold);">Ver sitio ↗</span>
           </div>
         </a>
         <div style="padding:2rem;display:flex;flex-direction:column;gap:0.8rem;">
-          <span style="font-family:'Bebas Neue',sans-serif;font-size:0.75rem;letter-spacing:0.15em;color:var(--accent);">SITIO WEB — BLACK LINE</span>
-          <h3 style="font-family:'Bebas Neue',sans-serif;font-size:1.5rem;letter-spacing:0.04em;line-height:1.1;">Presencia digital profesional para un negocio en crecimiento</h3>
-          <p style="font-size:0.82rem;color:var(--dim);line-height:1.7;"><strong style="color:var(--white);">Problema:</strong> Necesitaban una presencia web que transmitiera confianza y captara clientes nuevos.</p>
-          <p style="font-size:0.82rem;color:var(--dim);line-height:1.7;"><strong style="color:var(--white);">Solución:</strong> Sitio web diseñado para convertir visitas en consultas reales.</p>
+          <span style="font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:0.65rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--accent);">SITIO WEB — BLACK LINE</span>
+          <h3 style="font-family:'Playfair Display',serif;font-weight:700;font-size:1.4rem;letter-spacing:-0.01em;line-height:1.25;">Presencia digital profesional para un negocio en crecimiento</h3>
+          <p style="font-size:0.82rem;color:var(--ink-mid);line-height:1.7;"><strong style="color:var(--ink);">Problema:</strong> Necesitaban una presencia web que transmitiera confianza y captara clientes nuevos.</p>
+          <p style="font-size:0.82rem;color:var(--ink-mid);line-height:1.7;"><strong style="color:var(--ink);">Solución:</strong> Sitio web diseñado para convertir visitas en consultas reales.</p>
           <p style="font-size:0.82rem;color:var(--accent);line-height:1.7;font-weight:600;">Resultado: Más consultas, mejor imagen de marca. <a href="https://black-line-sage.vercel.app" target="_blank" rel="noopener noreferrer" style="color:var(--accent);text-decoration:underline;">Ver sitio →</a></p>
         </div>
       </div>
 
+      <!-- Can Te Pido -->
+      <div class="reveal" style="background:#fff9f6;border:1px solid rgba(155,28,28,0.12);border-radius:4px;display:flex;flex-direction:column;gap:0;overflow:hidden;">
+        <a href="https://cantepido.com.ar/" target="_blank" rel="noopener noreferrer" style="display:block;width:100%;aspect-ratio:16/9;overflow:hidden;text-decoration:none;position:relative;">
+          <img src="CANTEPIDOEJEMPLO.png" alt="Can Te Pido — tienda online" style="width:100%;height:100%;object-fit:cover;display:block;filter:brightness(0.85);" />
+          <div style="position:absolute;inset:0;background:rgba(40,6,6,0.8);display:flex;align-items:center;justify-content:center;opacity:0;transition:opacity 0.3s;" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0'">
+            <span style="font-size:0.7rem;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;border:1px solid var(--gold);padding:0.55rem 1.4rem;color:var(--gold);">Ver sitio ↗</span>
+          </div>
+        </a>
+        <div style="padding:2rem;display:flex;flex-direction:column;gap:0.8rem;">
+          <span style="font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:0.65rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--accent);">SITIO WEB — CAN TE PIDO</span>
+          <h3 style="font-family:'Playfair Display',serif;font-weight:700;font-size:1.4rem;letter-spacing:-0.01em;line-height:1.25;">Catálogo digital para camperas y buzos de egresados</h3>
+          <p style="font-size:0.82rem;color:var(--ink-mid);line-height:1.7;"><strong style="color:var(--ink);">Problema:</strong> 20 años de experiencia en indumentaria de egresados, pero sin presencia digital que lo reflejara.</p>
+          <p style="font-size:0.82rem;color:var(--ink-mid);line-height:1.7;"><strong style="color:var(--ink);">Solución:</strong> Sitio con catálogo por nivel educativo (jardín, primaria y secundaria) y formulario de presupuesto personalizado.</p>
+          <p style="font-size:0.82rem;color:var(--accent);line-height:1.7;font-weight:600;">Resultado: Más consultas y presupuestos sin depender solo del boca a boca. <a href="https://cantepido.com.ar/" target="_blank" rel="noopener noreferrer" style="color:var(--accent);text-decoration:underline;">Ver sitio →</a></p>
+        </div>
+      </div>
 
+      <!-- Luciana Fitness -->
+      <div class="reveal" style="background:#fff9f6;border:1px solid rgba(155,28,28,0.12);border-radius:4px;display:flex;flex-direction:column;gap:0;overflow:hidden;">
+        <a href="https://lucianafitness.com.ar/" target="_blank" rel="noopener noreferrer" style="display:block;width:100%;aspect-ratio:16/9;overflow:hidden;text-decoration:none;position:relative;">
+          <img src="FITNESSEJEMPLO.png" alt="Luciana Fitness — sitio web" style="width:100%;height:100%;object-fit:cover;display:block;filter:brightness(0.85);" />
+          <div style="position:absolute;inset:0;background:rgba(40,6,6,0.8);display:flex;align-items:center;justify-content:center;opacity:0;transition:opacity 0.3s;" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0'">
+            <span style="font-size:0.7rem;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;border:1px solid var(--gold);padding:0.55rem 1.4rem;color:var(--gold);">Ver sitio ↗</span>
+          </div>
+        </a>
+        <div style="padding:2rem;display:flex;flex-direction:column;gap:0.8rem;">
+          <span style="font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:0.65rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--accent);">SITIO WEB — LUCIANA FITNESS</span>
+          <h3 style="font-family:'Playfair Display',serif;font-weight:700;font-size:1.4rem;letter-spacing:-0.01em;line-height:1.25;">Presencia web para entrenadora personal</h3>
+          <p style="font-size:0.82rem;color:var(--ink-mid);line-height:1.7;"><strong style="color:var(--ink);">Problema:</strong> Necesitaba un sitio que generara confianza y captara alumnos nuevos más allá de Instagram.</p>
+          <p style="font-size:0.82rem;color:var(--ink-mid);line-height:1.7;"><strong style="color:var(--ink);">Solución:</strong> Sitio web con sus servicios, testimonios y contacto directo, optimizado para captar leads.</p>
+          <p style="font-size:0.82rem;color:var(--accent);line-height:1.7;font-weight:600;">Resultado: Más consultas y credibilidad de marca. <a href="https://lucianafitness.com.ar/" target="_blank" rel="noopener noreferrer" style="color:var(--accent);text-decoration:underline;">Ver sitio →</a></p>
+        </div>
+      </div>
 
     </div>
   </section>
@@ -831,7 +779,7 @@
   <!-- ═══════════════════════════════════════════════
        STATS
   ════════════════════════════════════════════════ -->
-  <section id="stats" aria-label="Cifras">
+  <section id="stats" class="dark-section" aria-label="Cifras">
     <canvas id="stats-canvas" aria-hidden="true"></canvas>
 
     <div class="stats-top reveal">
@@ -880,7 +828,7 @@
   <!-- ═══════════════════════════════════════════════
        TESTIMONIALS
   ════════════════════════════════════════════════ -->
-  <section id="testimonials" aria-label="Testimonios" style="background:var(--black);border-top:1px solid var(--border);">
+  <section id="testimonials" class="paper-section" aria-label="Testimonios" style="border-top:1px solid var(--border);">
     <div style="text-align:center;margin-bottom:3rem;">
       <span class="section-label reveal">Lo que dicen nuestros clientes</span>
       <h2 class="section-title split-title" style="text-align:center;">Confianza real.</h2>
@@ -888,82 +836,83 @@
 
     <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;max-width:1100px;margin:0 auto;" class="reveal-group testimonials-grid">
 
-      <div class="reveal" style="background:var(--gray);border:1px solid var(--border);padding:2rem;display:flex;flex-direction:column;gap:1rem;">
+      <div class="reveal" style="background:#fff9f6;border:1px solid rgba(155,28,28,0.12);padding:2rem;display:flex;flex-direction:column;gap:1rem;">
         <div style="display:flex;gap:0.15rem;">
           <span style="color:var(--accent);font-size:1rem;">★</span><span style="color:var(--accent);font-size:1rem;">★</span><span style="color:var(--accent);font-size:1rem;">★</span><span style="color:var(--accent);font-size:1rem;">★</span><span style="color:var(--accent);font-size:1rem;">★</span>
         </div>
-        <p style="font-size:0.88rem;color:var(--dim);line-height:1.72;font-style:italic;flex:1;">"Les expliqué lo que necesitaba sin saber nada de tecnología y me entendieron perfecto. En 10 días tenía mi página funcionando y ya me llegaron consultas por WhatsApp."</p>
+        <p style="font-size:0.88rem;color:var(--ink-mid);line-height:1.72;font-style:italic;flex:1;">"Les expliqué lo que necesitaba sin saber nada de tecnología y me entendieron perfecto. En 10 días tenía mi página funcionando y ya me llegaron consultas por WhatsApp."</p>
         <div style="border-top:1px solid var(--border);padding-top:1rem;">
-          <p style="font-size:0.85rem;color:var(--white);font-weight:600;">Martín R.</p>
-          <p style="font-size:0.72rem;color:var(--dim);letter-spacing:0.1em;">BARBERÍA — BUENOS AIRES</p>
+          <p style="font-size:0.85rem;color:var(--ink);font-weight:600;">Martín R.</p>
+          <p style="font-size:0.72rem;color:var(--ink-dim);letter-spacing:0.1em;">BARBERÍA — BUENOS AIRES</p>
         </div>
       </div>
 
-      <div class="reveal" style="background:var(--gray);border:1px solid var(--border);padding:2rem;display:flex;flex-direction:column;gap:1rem;">
+      <div class="reveal" style="background:#fff9f6;border:1px solid rgba(155,28,28,0.12);padding:2rem;display:flex;flex-direction:column;gap:1rem;">
         <div style="display:flex;gap:0.15rem;">
           <span style="color:var(--accent);font-size:1rem;">★</span><span style="color:var(--accent);font-size:1rem;">★</span><span style="color:var(--accent);font-size:1rem;">★</span><span style="color:var(--accent);font-size:1rem;">★</span><span style="color:var(--accent);font-size:1rem;">★</span>
         </div>
-        <p style="font-size:0.88rem;color:var(--dim);line-height:1.72;font-style:italic;flex:1;">"Nos armaron un sistema de pedidos automático que nos ahorró horas de trabajo. Ahora los clientes piden solos y nosotros nos enfocamos en cocinar."</p>
+        <p style="font-size:0.88rem;color:var(--ink-mid);line-height:1.72;font-style:italic;flex:1;">"Nos armaron un sistema de pedidos automático que nos ahorró horas de trabajo. Ahora los clientes piden solos y nosotros nos enfocamos en cocinar."</p>
         <div style="border-top:1px solid var(--border);padding-top:1rem;">
-          <p style="font-size:0.85rem;color:var(--white);font-weight:600;">Carolina S.</p>
-          <p style="font-size:0.72rem;color:var(--dim);letter-spacing:0.1em;">RESTAURANTE — ZONA NORTE</p>
+          <p style="font-size:0.85rem;color:var(--ink);font-weight:600;">Carolina S.</p>
+          <p style="font-size:0.72rem;color:var(--ink-dim);letter-spacing:0.1em;">RESTAURANTE — ZONA NORTE</p>
         </div>
       </div>
 
-      <div class="reveal" style="background:var(--gray);border:1px solid var(--border);padding:2rem;display:flex;flex-direction:column;gap:1rem;">
+      <div class="reveal" style="background:#fff9f6;border:1px solid rgba(155,28,28,0.12);padding:2rem;display:flex;flex-direction:column;gap:1rem;">
         <div style="display:flex;gap:0.15rem;">
           <span style="color:var(--accent);font-size:1rem;">★</span><span style="color:var(--accent);font-size:1rem;">★</span><span style="color:var(--accent);font-size:1rem;">★</span><span style="color:var(--accent);font-size:1rem;">★</span><span style="color:var(--accent);font-size:1rem;">★</span>
         </div>
-        <p style="font-size:0.88rem;color:var(--dim);line-height:1.72;font-style:italic;flex:1;">"Yo pensaba que tener una web era carísimo y complicado. BlackByte me demostró que no. Ahora mis alumnos me encuentran en Google y no en un flyer."</p>
+        <p style="font-size:0.88rem;color:var(--ink-mid);line-height:1.72;font-style:italic;flex:1;">"Yo pensaba que tener una web era carísimo y complicado. BlackByte me demostró que no. Ahora mis alumnos me encuentran en Google y no en un flyer."</p>
         <div style="border-top:1px solid var(--border);padding-top:1rem;">
-          <p style="font-size:0.85rem;color:var(--white);font-weight:600;">Diego L.</p>
-          <p style="font-size:0.72rem;color:var(--dim);letter-spacing:0.1em;">GIMNASIO — CÓRDOBA</p>
+          <p style="font-size:0.85rem;color:var(--ink);font-weight:600;">Diego L.</p>
+          <p style="font-size:0.72rem;color:var(--ink-dim);letter-spacing:0.1em;">GIMNASIO — CÓRDOBA</p>
         </div>
       </div>
 
-      <div class="reveal" style="background:var(--gray);border:1px solid var(--border);padding:2rem;display:flex;flex-direction:column;gap:1rem;">
+      <div class="reveal" style="background:#fff9f6;border:1px solid rgba(155,28,28,0.12);padding:2rem;display:flex;flex-direction:column;gap:1rem;">
         <div style="display:flex;gap:0.15rem;">
           <span style="color:var(--accent);font-size:1rem;">★</span><span style="color:var(--accent);font-size:1rem;">★</span><span style="color:var(--accent);font-size:1rem;">★</span><span style="color:var(--accent);font-size:1rem;">★</span><span style="color:var(--accent);font-size:1rem;">★</span>
         </div>
-        <p style="font-size:0.88rem;color:var(--dim);line-height:1.72;font-style:italic;flex:1;">"Teníamos una página vieja y fea que daba vergüenza mostrar. En dos semanas BlackByte nos entregó algo que parece de empresa grande. Los clientes nos preguntan si somos una cadena."</p>
+        <p style="font-size:0.88rem;color:var(--ink-mid);line-height:1.72;font-style:italic;flex:1;">"Teníamos una página vieja y fea que daba vergüenza mostrar. En dos semanas BlackByte nos entregó algo que parece de empresa grande. Los clientes nos preguntan si somos una cadena."</p>
         <div style="border-top:1px solid var(--border);padding-top:1rem;">
-          <p style="font-size:0.85rem;color:var(--white);font-weight:600;">Lucía M.</p>
-          <p style="font-size:0.72rem;color:var(--dim);letter-spacing:0.1em;">ESTÉTICA — ROSARIO</p>
+          <p style="font-size:0.85rem;color:var(--ink);font-weight:600;">Lucía M.</p>
+          <p style="font-size:0.72rem;color:var(--ink-dim);letter-spacing:0.1em;">ESTÉTICA — ROSARIO</p>
         </div>
       </div>
 
-      <div class="reveal" style="background:var(--gray);border:1px solid var(--border);padding:2rem;display:flex;flex-direction:column;gap:1rem;">
+      <div class="reveal" style="background:#fff9f6;border:1px solid rgba(155,28,28,0.12);padding:2rem;display:flex;flex-direction:column;gap:1rem;">
         <div style="display:flex;gap:0.15rem;">
           <span style="color:var(--accent);font-size:1rem;">★</span><span style="color:var(--accent);font-size:1rem;">★</span><span style="color:var(--accent);font-size:1rem;">★</span><span style="color:var(--accent);font-size:1rem;">★</span><span style="color:var(--accent);font-size:1rem;">★</span>
         </div>
-        <p style="font-size:0.88rem;color:var(--dim);line-height:1.72;font-style:italic;flex:1;">"Me armaron el bot de WhatsApp y es una locura. Responde consultas solo, agenda turnos y yo solo entro a confirmar. Recuperé 3 horas por día que antes perdía en el teléfono."</p>
+        <p style="font-size:0.88rem;color:var(--ink-mid);line-height:1.72;font-style:italic;flex:1;">"Me armaron el bot de WhatsApp y es una locura. Responde consultas solo, agenda turnos y yo solo entro a confirmar. Recuperé 3 horas por día que antes perdía en el teléfono."</p>
         <div style="border-top:1px solid var(--border);padding-top:1rem;">
-          <p style="font-size:0.85rem;color:var(--white);font-weight:600;">Sebastián V.</p>
-          <p style="font-size:0.72rem;color:var(--dim);letter-spacing:0.1em;">TALLER MECÁNICO — MENDOZA</p>
+          <p style="font-size:0.85rem;color:var(--ink);font-weight:600;">Sebastián V.</p>
+          <p style="font-size:0.72rem;color:var(--ink-dim);letter-spacing:0.1em;">TALLER MECÁNICO — MENDOZA</p>
         </div>
       </div>
 
-      <div class="reveal" style="background:var(--gray);border:1px solid var(--border);padding:2rem;display:flex;flex-direction:column;gap:1rem;">
+      <div class="reveal" style="background:#fff9f6;border:1px solid rgba(155,28,28,0.12);padding:2rem;display:flex;flex-direction:column;gap:1rem;">
         <div style="display:flex;gap:0.15rem;">
           <span style="color:var(--accent);font-size:1rem;">★</span><span style="color:var(--accent);font-size:1rem;">★</span><span style="color:var(--accent);font-size:1rem;">★</span><span style="color:var(--accent);font-size:1rem;">★</span><span style="color:var(--accent);font-size:1rem;">★</span>
         </div>
-        <p style="font-size:0.88rem;color:var(--dim);line-height:1.72;font-style:italic;flex:1;">"Abrí mi emprendimiento de indumentaria y necesitaba una tienda online urgente. En menos de dos semanas estaba vendiendo. El primer mes recuperé lo invertido con creces."</p>
+        <p style="font-size:0.88rem;color:var(--ink-mid);line-height:1.72;font-style:italic;flex:1;">"Abrí mi emprendimiento de indumentaria y necesitaba una tienda online urgente. En menos de dos semanas estaba vendiendo. El primer mes recuperé lo invertido con creces."</p>
         <div style="border-top:1px solid var(--border);padding-top:1rem;">
-          <p style="font-size:0.85rem;color:var(--white);font-weight:600;">Valentina P.</p>
-          <p style="font-size:0.72rem;color:var(--dim);letter-spacing:0.1em;">TIENDA DE ROPA — CABA</p>
+          <p style="font-size:0.85rem;color:var(--ink);font-weight:600;">Valentina P.</p>
+          <p style="font-size:0.72rem;color:var(--ink-dim);letter-spacing:0.1em;">TIENDA DE ROPA — CABA</p>
         </div>
       </div>
 
     </div>
   </section>
 
+
   <!-- ═══════════════════════════════════════════════
        URGENCY
   ════════════════════════════════════════════════ -->
   <section id="urgency" aria-label="Disponibilidad" style="background:var(--gray);border-top:1px solid var(--border);text-align:center;padding:5rem 5%;">
     <div class="reveal" style="max-width:650px;margin:0 auto;">
-      <span style="display:inline-block;font-size:0.65rem;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;background:rgba(0,102,255,0.15);color:var(--accent);padding:0.35rem 1rem;border-radius:2px;margin-bottom:1.5rem;">CUPOS LIMITADOS</span>
-      <h2 style="font-family:'Bebas Neue',sans-serif;font-size:clamp(2.5rem,6vw,4.5rem);line-height:0.95;color:var(--white);margin-bottom:1.2rem;">Trabajamos con máximo 5 clientes por mes.</h2>
+      <span style="display:inline-block;font-size:0.65rem;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;background:rgba(201,168,76,0.12);color:var(--gold);border:1px solid rgba(201,168,76,0.3);padding:0.35rem 1rem;border-radius:2px;margin-bottom:1.5rem;">CUPOS LIMITADOS</span>
+      <h2 style="font-family:'Playfair Display',serif;font-size:clamp(2.5rem,6vw,4.5rem);line-height:0.95;color:var(--white);margin-bottom:1.2rem;">Trabajamos con máximo 5 clientes por mes.</h2>
       <p style="font-size:0.92rem;color:var(--dim);line-height:1.72;margin-bottom:2rem;">
         Para garantizar calidad y dedicación real a cada proyecto, limitamos la cantidad de clientes que tomamos. Si estás leyendo esto, todavía hay lugar.
       </p>
@@ -974,7 +923,7 @@
   <!-- ═══════════════════════════════════════════════
        COURSES PREVIEW
   ════════════════════════════════════════════════ -->
-  <section id="courses" aria-label="Cursos">
+  <section id="courses" class="dark-section" aria-label="Cursos">
     <canvas id="courses-canvas" aria-hidden="true"></canvas>
 
     <!-- orbital de fondo, posición absoluta -->
@@ -988,11 +937,11 @@
     <div class="courses-center reveal">
       <span class="section-label">Aprendizaje</span>
       <h2 class="section-title split-title">Cursos.</h2>
-      <p style="font-size:0.9rem;color:var(--dim);line-height:1.75;max-width:420px;margin:1.2rem auto 2rem;">
+      <p style="font-size:0.9rem;color:var(--dark-dim);line-height:1.75;max-width:420px;margin:1.2rem auto 2rem;">
         Formación práctica, directa al punto, orientada a resultados reales.
       </p>
-      <p style="font-family:'Bebas Neue',sans-serif;font-size:2rem;letter-spacing:0.14em;color:var(--white);margin-bottom:0.4rem;">Coming Soon</p>
-      <p style="font-size:0.7rem;letter-spacing:0.16em;text-transform:uppercase;color:var(--dim);margin-bottom:2rem;">Algo que vale la pena esperar</p>
+      <p style="font-family:'Playfair Display',serif;font-size:2rem;letter-spacing:-0.01em;color:var(--dark-text);margin-bottom:0.4rem;">Coming Soon</p>
+      <p style="font-size:0.7rem;letter-spacing:0.16em;text-transform:uppercase;color:var(--dark-dim);margin-bottom:2rem;">Algo que vale la pena esperar</p>
       <a href="register.html" class="btn btn-outline">Notificarme</a>
     </div>
 
@@ -1001,7 +950,7 @@
   <!-- ═══════════════════════════════════════════════
        CONTACT
   ════════════════════════════════════════════════ -->
-  <section id="contact" aria-label="Contacto">
+  <section id="contact" class="dark-section" aria-label="Contacto">
     <span class="section-label reveal">Hablemos de tu negocio</span>
     <h2 class="section-title split-title">¿Listo para crecer?</h2>
     <p class="section-sub reveal">Escribinos hoy y en menos de 24 horas tenés una propuesta personalizada para tu negocio. Sin compromiso.</p>
@@ -1195,13 +1144,13 @@
     }
     .svc-modal-close:hover { color: var(--white); }
     .svc-modal-num {
-      font-family: 'Bebas Neue', sans-serif;
+      font-family: 'Playfair Display', serif;
       font-size: .8rem; letter-spacing: .15em;
       color: rgba(240,240,240,.2);
       display: block; margin-bottom: 1rem;
     }
     .svc-modal-box h2 {
-      font-family: 'Bebas Neue', sans-serif;
+      font-family: 'Playfair Display', serif;
       font-size: 2.4rem; letter-spacing: .04em;
       margin-bottom: 1rem;
     }
