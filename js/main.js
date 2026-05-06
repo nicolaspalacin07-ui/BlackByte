@@ -477,19 +477,22 @@ if (sections.length && navItems.length) {
   if (!canvas) return;
   const section = document.getElementById('stats');
   const ctx = canvas.getContext('2d');
-  let W, H, lines = [], t = 0;
+  let W, H, particles = [], t = 0;
 
   function resize() {
     W = canvas.width  = section.offsetWidth;
     H = canvas.height = section.offsetHeight;
-    lines = [];
-    for (let i = 0; i < 18; i++) {
-      lines.push({
-        x: Math.random() * W, y: Math.random() * H,
-        tx: Math.random() * W, ty: Math.random() * H,
-        speed: 0.002 + Math.random() * 0.003,
-        alpha: 0.03 + Math.random() * 0.06,
-        phase: Math.random() * Math.PI * 2
+    particles = [];
+    for (let i = 0; i < 60; i++) {
+      particles.push({
+        x: Math.random() * W,
+        y: Math.random() * H,
+        r: 0.6 + Math.random() * 2.2,
+        vx: (Math.random() - 0.5) * 0.25,
+        vy: -0.15 - Math.random() * 0.45,
+        isCrimson: Math.random() > 0.45,
+        alpha: 0.12 + Math.random() * 0.3,
+        pulse: Math.random() * Math.PI * 2,
       });
     }
   }
@@ -498,38 +501,59 @@ if (sections.length && navItems.length) {
 
   (function loop() {
     ctx.clearRect(0, 0, W, H);
-    t += 0.008;
+    t += 0.01;
 
-    // pulsing orbs
-    [0.2, 0.5, 0.8].forEach((xr, i) => {
+    // Three pulsing orbs aligned with stat columns
+    [1/6, 3/6, 5/6].forEach((xr, i) => {
       const x = W * xr;
-      const y = H * 0.5 + Math.sin(t + i * 2) * H * 0.1;
-      const r = 200 + Math.sin(t * 0.7 + i) * 60;
+      const y = H * 0.5 + Math.sin(t * 0.5 + i * 2.1) * H * 0.08;
+      const r = 180 + Math.sin(t * 0.65 + i) * 50;
+      const a = 0.055 + Math.sin(t * 0.8 + i) * 0.02;
       const g = ctx.createRadialGradient(x, y, 0, x, y, r);
-      g.addColorStop(0, `rgba(255,255,255,${0.055 + Math.sin(t + i) * 0.02})`);
+      g.addColorStop(0, `rgba(155,28,28,${a})`);
+      g.addColorStop(0.55, `rgba(107,16,16,${a * 0.4})`);
       g.addColorStop(1, 'transparent');
       ctx.fillStyle = g;
       ctx.fillRect(0, 0, W, H);
     });
 
-    // animated lines
-    lines.forEach(l => {
-      l.phase += l.speed;
-      const ax = l.x + Math.sin(l.phase) * 80;
-      const ay = l.y + Math.cos(l.phase * 0.7) * 60;
-      const bx = l.tx + Math.cos(l.phase) * 80;
-      const by = l.ty + Math.sin(l.phase * 0.7) * 60;
+    // Floating particles
+    particles.forEach(p => {
+      p.pulse += 0.022;
+      p.x += p.vx;
+      p.y += p.vy;
+      if (p.y < -8)  { p.y = H + 8; p.x = Math.random() * W; }
+      if (p.x < -8)    p.x = W + 8;
+      if (p.x > W + 8) p.x = -8;
+
+      const a = p.alpha * (0.65 + Math.sin(p.pulse) * 0.35);
+      const color = p.isCrimson
+        ? `rgba(155,28,28,${a})`
+        : `rgba(160,120,40,${a})`;
       ctx.beginPath();
-      ctx.moveTo(ax, ay);
-      ctx.lineTo(bx, by);
-      ctx.strokeStyle = `rgba(255,255,255,${l.alpha})`;
-      ctx.lineWidth = 0.5;
-      ctx.stroke();
+      ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+      ctx.fillStyle = color;
+      ctx.shadowBlur = 8;
+      ctx.shadowColor = color;
+      ctx.fill();
+      ctx.shadowBlur = 0;
     });
 
     requestAnimationFrame(loop);
   })();
 })();
+
+/* ─── Stats Mouse Glow ──────────────────────────────────── */
+document.querySelectorAll('.stat-item-v2').forEach(item => {
+  const glow = document.createElement('div');
+  glow.className = 'stat-glow';
+  item.prepend(glow);
+  item.addEventListener('mousemove', e => {
+    const r = item.getBoundingClientRect();
+    glow.style.left = (e.clientX - r.left) + 'px';
+    glow.style.top  = (e.clientY - r.top)  + 'px';
+  });
+});
 
 /* ─── Multi-layer Scroll Parallax ──────────────────────── */
 (function initParallax() {

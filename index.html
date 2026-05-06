@@ -271,8 +271,7 @@
     #stats::after { content: none; }
 
     .stats-top {
-      padding: 4rem 5% 2rem;
-      border-bottom: 1px solid var(--border);
+      padding: 4rem 5% 3rem;
       position: relative;
       z-index: 1;
     }
@@ -282,80 +281,107 @@
       grid-template-columns: repeat(3, 1fr);
       position: relative;
       z-index: 1;
+      border-top: 1px solid rgba(155,28,28,0.2);
     }
-
 
     .stat-item-v2 {
-      padding: 4rem 5%;
-      border-right: 1px solid var(--border);
-      border-bottom: 1px solid var(--border);
+      padding: 4.5rem 5%;
+      border-right: 1px solid rgba(155,28,28,0.15);
       position: relative;
       overflow: hidden;
-      transition: background 0.4s;
+      cursor: default;
     }
     .stat-item-v2:last-child { border-right: none; }
-    .stat-item-v2:hover { background: rgba(201,168,76,0.05); border-top: 2px solid var(--gold) !important; }
 
-    /* corner accent */
-    .stat-item-v2::before {
-      content: '';
-      border-top-color: var(--accent) !important;
-      border-left-color: var(--accent) !important;
+    /* Ghost number behind */
+    .stat-ghost {
       position: absolute;
-      top: 0; left: 0;
-      width: 40px; height: 40px;
-      border-top: 1px solid rgba(255,255,255,0.15);
-      border-left: 1px solid rgba(255,255,255,0.15);
-      opacity: 0;
-      transition: opacity 0.3s;
+      font-family: 'Playfair Display', serif;
+      font-weight: 900;
+      font-size: min(22vw, 300px);
+      color: transparent;
+      -webkit-text-stroke: 1px rgba(155,28,28,0.055);
+      top: 55%; left: -4%;
+      transform: translateY(-50%);
+      pointer-events: none;
+      user-select: none;
+      line-height: 1;
+      letter-spacing: -0.04em;
+      z-index: 0;
+      transition: -webkit-text-stroke-color 0.4s, opacity 0.4s;
     }
-    .stat-item-v2:hover::before { opacity: 1; }
+    .stat-item-v2:hover .stat-ghost {
+      -webkit-text-stroke-color: rgba(155,28,28,0.13);
+    }
+
+    /* Mouse-follow glow (injected via JS) */
+    .stat-glow {
+      position: absolute;
+      width: 400px; height: 400px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(155,28,28,0.11) 0%, transparent 65%);
+      pointer-events: none;
+      transform: translate(-50%, -50%);
+      opacity: 0;
+      transition: opacity 0.35s;
+      z-index: 0;
+    }
+    .stat-item-v2:hover .stat-glow { opacity: 1; }
 
     .stat-v2-inner {
       display: flex;
       flex-direction: column;
-      gap: 1.2rem;
+      gap: 1.3rem;
+      position: relative;
+      z-index: 1;
     }
 
     .stat-v2-number {
       font-family: 'Playfair Display', serif;
-      font-size: clamp(4.5rem, 8vw, 9rem);
-      font-weight: 700;
+      font-size: clamp(5rem, 9.5vw, 10.5rem);
+      font-weight: 900;
       line-height: 1.0;
-      letter-spacing: -0.02em;
-      color: var(--accent);
+      letter-spacing: -0.03em;
+      background: linear-gradient(135deg, #c02828 0%, #c99a40 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      filter: drop-shadow(0 0 32px rgba(155,28,28,0.5));
       display: flex;
       align-items: baseline;
       gap: 0.05em;
     }
 
     .stat-v2-suffix {
-      font-size: 0.4em;
-      opacity: 0.4;
+      font-size: 0.32em;
+      font-weight: 700;
+      background: linear-gradient(135deg, #c02828 0%, #c99a40 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
     }
 
     .stat-v2-bar {
-      height: 2px;
-      background: rgba(58,6,6,0.5);
+      height: 1px;
+      background: rgba(155,28,28,0.18);
       overflow: hidden;
     }
 
     .stat-v2-fill {
       height: 100%;
       width: 0%;
-      background: linear-gradient(90deg, var(--bordeaux), var(--gold));
-      transition: width 1.8s cubic-bezier(.23,1,.32,1);
-      box-shadow: 0 0 8px rgba(201,168,76,0.5);
+      background: linear-gradient(90deg, var(--crimson), var(--gold-bright));
+      transition: width 2.2s cubic-bezier(.23,1,.32,1);
+      box-shadow: 0 0 12px rgba(201,168,76,0.6);
     }
     .stat-v2-fill.animated { width: var(--fill-width, 100%); }
 
     .stat-v2-label {
-      font-size: 0.65rem;
+      font-size: 0.62rem;
       font-weight: 700;
       letter-spacing: 0.22em;
       text-transform: uppercase;
       color: var(--gold);
-      opacity: 0.9;
     }
 
     .stat-v2-desc {
@@ -487,8 +513,9 @@
       #packages .services-header { flex-direction: column; align-items: flex-start; }
       #packages > div:nth-child(2) { grid-template-columns: 1fr !important; }
       .stats-grid       { grid-template-columns: 1fr; }
-      .stat-item-v2     { border-right: none; }
+      .stat-item-v2     { border-right: none; border-bottom: 1px solid rgba(155,28,28,0.15); }
       .stat-item-v2:last-child { border-bottom: none; }
+      .stat-ghost       { font-size: min(40vw, 200px); }
       .cases-grid        { grid-template-columns: 1fr !important; }
       .testimonials-grid { grid-template-columns: 1fr !important; }
       .contact-buttons  { flex-direction: column; align-items: stretch; max-width: 320px; margin: 0 auto; }
@@ -789,9 +816,10 @@
     <div class="stats-grid">
 
       <div class="stat-item-v2 reveal">
+        <div class="stat-ghost" aria-hidden="true">100</div>
         <div class="stat-v2-inner">
           <div class="stat-v2-number">
-            <span class="stat-v2-digits">100</span><span class="stat-v2-suffix">%</span>
+            <span class="stat-v2-digits" data-target="100">0</span><span class="stat-v2-suffix">%</span>
           </div>
           <div class="stat-v2-bar"><div class="stat-v2-fill" data-width="100"></div></div>
           <div class="stat-v2-label">Clientes satisfechos</div>
@@ -800,9 +828,10 @@
       </div>
 
       <div class="stat-item-v2 reveal">
+        <div class="stat-ghost" aria-hidden="true">24</div>
         <div class="stat-v2-inner">
           <div class="stat-v2-number">
-            <span class="stat-v2-digits">24</span><span class="stat-v2-suffix">H</span>
+            <span class="stat-v2-digits" data-target="24">0</span><span class="stat-v2-suffix">H</span>
           </div>
           <div class="stat-v2-bar"><div class="stat-v2-fill" data-width="75"></div></div>
           <div class="stat-v2-label">Respuesta garantizada</div>
@@ -811,9 +840,10 @@
       </div>
 
       <div class="stat-item-v2 reveal">
+        <div class="stat-ghost" aria-hidden="true">7</div>
         <div class="stat-v2-inner">
           <div class="stat-v2-number">
-            <span class="stat-v2-digits">7</span><span class="stat-v2-suffix">DÍAS</span>
+            <span class="stat-v2-digits" data-target="7">0</span><span class="stat-v2-suffix">DÍAS</span>
           </div>
           <div class="stat-v2-bar"><div class="stat-v2-fill" data-width="85"></div></div>
           <div class="stat-v2-label">Entrega más rápida</div>
